@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
 export default function Page() {
@@ -23,7 +24,7 @@ function Content() {
             <Text className="mx-auto max-w-[700px] text-lg text-center text-gray-500 md:text-xl dark:text-gray-400">
               Discover and collaborate on acme. Explore our services now.
             </Text>
-
+            <Link href="/login">Login</Link>
           </View>
         </View>
       </View>

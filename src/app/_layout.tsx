@@ -4,14 +4,18 @@ import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { useColorScheme } from "nativewind";
 
 import { ThemeProvider } from "@/context/theme-context";
 import "../global.css";
+import BackButton from "@/components/back-button";
+import Toggle from "@/components/toggle";
 
 SplashScreen.preventAutoHideAsync();
 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
 
 export default function Layout() {
+  const { colorScheme } = useColorScheme();
   const [loaded, error] = useFonts({
     "Poppins-Bold": require("../assets/fonts/poppins/Poppins-Bold.otf"),
     "Poppins-Medium": require("../assets/fonts/poppins/Poppins-Medium.otf"),
@@ -36,6 +40,10 @@ export default function Layout() {
         initialRouteName="login"
         screenOptions={{
           headerShown: false,
+          contentStyle: {
+            flex: 1,
+            backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
+          },
         }}
       >
         <Stack.Screen name="index" />
@@ -43,13 +51,30 @@ export default function Layout() {
         <Stack.Screen
           name="login"
           options={{
+            headerLeft: () => <BackButton />,
+            headerShown: true,
+            title: "",
             animation: "fade",
+            headerStyle: {
+              backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
+            },
           }}
         />
-        <Stack.Screen name="register" />
+        <Stack.Screen
+          name="register"
+          options={{
+            headerLeft: () => <BackButton />,
+            headerShown: true,
+            title: "",
+            animation: "slide_from_left",
+            headerStyle: {
+              backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
+            },
+          }}
+        />
         <Stack.Screen name="splash" />
       </Stack>
-      <StatusBar style="inverted" />
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
     </ThemeProvider>
   );
 }
