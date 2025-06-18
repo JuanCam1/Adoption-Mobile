@@ -37,7 +37,6 @@ export default function Layout() {
   return (
     <ThemeProvider>
       <Stack
-        initialRouteName="login"
         screenOptions={{
           headerShown: false,
           contentStyle: {

@@ -1,33 +1,43 @@
-import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import TextPoppins from "@/components/text-poppins";
+import TextRoboto from "@/components/text-roboto";
+import { Image, TouchableOpacity, View } from "react-native";
+import logo from "../assets/images/logo.jpg";
+const LOGO = Image.resolveAssetSource(logo).uri;
 
-export default function Page() {
+const Page = () => {
   return (
-    <View className="flex flex-1">
-      <Content />
-    </View>
-  );
-}
+    <View className="flex-1 items-center justify-center p-6 bg-indigo-400">
+      <Image
+        width={200}
+        height={200}
+        source={{ uri: LOGO }}
+        className="rounded-full"
+      />
 
-function Content() {
-  return (
-    <View className="flex-1">
-      <View className="py-12 md:py-24 lg:py-32 xl:py-48">
-        <View className="px-4 md:px-6">
-          <View className="flex flex-col items-center gap-4 text-center">
-            <Text
-              role="heading"
-              className="text-3xl text-center native:text-5xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl"
-            >
-              Welcome to Project ACME
-            </Text>
-            <Text className="mx-auto max-w-[700px] text-lg text-center text-gray-500 md:text-xl dark:text-gray-400">
-              Discover and collaborate on acme. Explore our services now.
-            </Text>
-            <Link href="/login">Login</Link>
-          </View>
-        </View>
+      <TextPoppins
+        text="AdoptaYa"
+        className="text-white text-6xl text-center font-Roboto_ExtraBold mb-6"
+      />
+      <TextRoboto
+        text="Encuentra a tu nuevo mejor amigo. Adopta con un toque. 🐾"
+        className="dark:text-zinc-800 text-center px-6 text-xl font-Roboto_Bold"
+      />
+      <View className="flex gap-3 flex-row items-center mt-8">
+        <TouchableOpacity>
+          <TextRoboto
+            text="Comenzar"
+            className="text-white text-lg font-Roboto_Bold bg-indigo-600 px-6 py-3 rounded-md "
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <TextRoboto
+            text="Registrarse"
+            className="text-indigo-600 text-lg font-Roboto_Bold bg-white px-6 py-3 rounded-md"
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
+
+export default Page;
