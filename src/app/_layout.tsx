@@ -9,7 +9,6 @@ import { useColorScheme } from "nativewind";
 import { ThemeProvider } from "@/context/theme-context";
 import "../global.css";
 import BackButton from "@/components/back-button";
-import Toggle from "@/components/toggle";
 
 SplashScreen.preventAutoHideAsync();
 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
@@ -53,7 +52,7 @@ export default function Layout() {
             headerLeft: () => <BackButton />,
             headerShown: true,
             title: "",
-            animation: "fade",
+            animation: "slide_from_right",
             headerStyle: {
               backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
             },
@@ -65,7 +64,7 @@ export default function Layout() {
             headerLeft: () => <BackButton />,
             headerShown: true,
             title: "",
-            animation: "slide_from_left",
+            animation: "slide_from_right",
             headerStyle: {
               backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
             },
