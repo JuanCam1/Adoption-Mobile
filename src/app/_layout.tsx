@@ -7,8 +7,8 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import { useColorScheme } from "nativewind";
 
 import { ThemeProvider } from "@/context/theme-context";
-import "../global.css";
 import BackButton from "@/components/back-button";
+import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
@@ -36,6 +36,7 @@ export default function Layout() {
   return (
     <ThemeProvider>
       <Stack
+        initialRouteName="home"
         screenOptions={{
           headerShown: false,
           contentStyle: {
@@ -70,7 +71,12 @@ export default function Layout() {
             },
           }}
         />
-        <Stack.Screen name="splash" />
+        <Stack.Screen
+          name="home"
+          options={{
+            animation: "slide_from_right",
+          }}
+        />
       </Stack>
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
     </ThemeProvider>

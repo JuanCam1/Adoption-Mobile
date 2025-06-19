@@ -12,9 +12,35 @@
         {
           "origin": "https://n"
         }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#818cf8",
+          "image": "./src/assets/images/logo.jpg",
+          "imageWidth": 200,
+          "resizeMode": "contain"
+        }
       ]
     ],
-    "name": "Adoption-mobile",
-    "slug": "Adoption-mobile"
+    "name": "AdoptaYa",
+    "slug": "Adoption-mobile",
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.juancamilo.adoptionmobile",
+      "edgeToEdgeEnabled": true
+    },
+    "extra": {
+      "router": {
+        "origin": "https://n"
+      },
+      "eas": {
+        "projectId": "af7ef88f-cfcc-4ce1-b7bc-0126d2ce881a"
+      }
+    },
+    "owner": "juancam1"
   }
 }

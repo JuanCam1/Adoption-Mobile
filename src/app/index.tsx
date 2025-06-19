@@ -2,7 +2,7 @@ import { Image, TouchableOpacity, View } from "react-native";
 import { useRouter } from "expo-router";
 import TextPoppins from "@/components/text-poppins";
 import TextRoboto from "@/components/text-roboto";
-import logo from "../assets/images/logo.jpg";
+import logo from "../assets/images/logo2.png";
 const LOGO = Image.resolveAssetSource(logo).uri;
 
 const Page = () => {
@@ -15,10 +15,10 @@ const Page = () => {
   return (
     <View className="flex-1 items-center justify-center p-6 gap-8 bg-indigo-400">
       <Image
-        width={200}
-        height={200}
+        width={300}
+        height={300}
         source={{ uri: LOGO }}
-        className="rounded-full"
+        className="rounded-md object-cover"
       />
 
       <View className="flex gap-2 items-center">

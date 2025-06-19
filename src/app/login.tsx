@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { Eye, Mail } from "lucide-react-native";
 import InputIcon from "@/components/input-icon";
 import TextPoppins from "@/components/text-poppins";
@@ -15,6 +15,7 @@ import {
 } from "react-native";
 
 const LoginScreen = () => {
+  const router = useRouter();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -68,7 +69,7 @@ const LoginScreen = () => {
                 />
               </View>
               <TouchableOpacity
-                onPress={() => console.log("Presionado")}
+                onPress={() => router.push("home")}
                 className="bg-indigo-500 w-full rounded-md h-12 flex items-center justify-center"
                 activeOpacity={0.7}
               >
