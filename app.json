@@ -17,7 +17,7 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#818cf8",
-          "image": "./src/assets/images/logo.jpg",
+          "image": "./src/assets/images/logo.png",
           "imageWidth": 200,
           "resizeMode": "contain"
         }
@@ -41,6 +41,9 @@
         "projectId": "af7ef88f-cfcc-4ce1-b7bc-0126d2ce881a"
       }
     },
-    "owner": "juancam1"
+    "owner": "juancam1",
+    "ios": {
+      "bundleIdentifier": "com.juancamilo.adoptionmobile"
+    }
   }
 }

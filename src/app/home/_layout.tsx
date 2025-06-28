@@ -37,7 +37,7 @@ const Layout = () => {
         }}
       >
         <Drawer.Screen
-          name="index"
+          name="post"
           options={{
             drawerLabel: "Publicaciones",
             title: "Publicaciones",
