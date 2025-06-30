@@ -5,9 +5,11 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useColorScheme } from "nativewind";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 import { ThemeProvider } from "@/context/theme-context";
 import BackButton from "@/components/back-button";
+import { query } from "@/libs/query";
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -34,51 +36,53 @@ export default function Layout() {
     return null;
   }
   return (
-    <ThemeProvider>
-      <Stack
-        initialRouteName="home"
-        screenOptions={{
-          headerShown: false,
-          contentStyle: {
-            flex: 1,
-            backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
-          },
-        }}
-      >
-        <Stack.Screen name="index" />
+    <QueryClientProvider client={query}>
+      <ThemeProvider>
+        <Stack
+          initialRouteName="home"
+          screenOptions={{
+            headerShown: false,
+            contentStyle: {
+              flex: 1,
+              backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
+            },
+          }}
+        >
+          <Stack.Screen name="index" />
 
-        <Stack.Screen
-          name="login"
-          options={{
-            headerLeft: () => <BackButton />,
-            headerShown: true,
-            title: "",
-            animation: "slide_from_right",
-            headerStyle: {
-              backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
-            },
-          }}
-        />
-        <Stack.Screen
-          name="register"
-          options={{
-            headerLeft: () => <BackButton />,
-            headerShown: true,
-            title: "",
-            animation: "slide_from_right",
-            headerStyle: {
-              backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
-            },
-          }}
-        />
-        <Stack.Screen
-          name="home"
-          options={{
-            animation: "slide_from_right",
-          }}
-        />
-      </Stack>
-      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-    </ThemeProvider>
+          <Stack.Screen
+            name="login"
+            options={{
+              headerLeft: () => <BackButton />,
+              headerShown: true,
+              title: "",
+              animation: "slide_from_right",
+              headerStyle: {
+                backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="register"
+            options={{
+              headerLeft: () => <BackButton />,
+              headerShown: true,
+              title: "",
+              animation: "slide_from_right",
+              headerStyle: {
+                backgroundColor: colorScheme === "dark" ? "#18181b" : "#fafafa",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="home"
+            options={{
+              animation: "slide_from_right",
+            }}
+          />
+        </Stack>
+        <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }

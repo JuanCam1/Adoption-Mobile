@@ -30,7 +30,7 @@
         "foregroundImage": "./src/assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.juancamilo.adoptionmobile",
+      "package": "com.juancamilo.adoptaya",
       "edgeToEdgeEnabled": true
     },
     "extra": {
@@ -43,7 +43,7 @@
     },
     "owner": "juancam1",
     "ios": {
-      "bundleIdentifier": "com.juancamilo.adoptionmobile"
+      "bundleIdentifier": "com.juancamilo.adoptaya"
     }
   }
 }

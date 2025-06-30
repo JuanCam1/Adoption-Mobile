@@ -4,7 +4,7 @@ import TextRoboto from "@/components/text-roboto";
 import { dataStories } from "@/data/data_stories";
 import { useLocalSearchParams } from "expo-router";
 import { View, Text, Image, Dimensions, ScrollView } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import PostMap from "@/modules/posts/components/post-map";
 
 const PostId = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -29,7 +29,6 @@ const PostId = () => {
         text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro commodi excepturi dolor recusandae, repellat aliquid voluptatum fugiat consectetur animi enim."
         className="text-left dark:text-zinc-400 text-xl mt-2"
       />
-
       <TextPoppins
         text="Información"
         className="text-2xl font-bold dark:text-indigo-400 mt-6"
@@ -85,30 +84,14 @@ const PostId = () => {
           />
         </View>
       </View>
-
       <Divider className="my-4" />
-
       <TextPoppins
         text="Ubicación"
         className="text-2xl font-bold dark:text-indigo-400 mt-6"
       />
-
-      <MapView
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        className="w-full h-[300px]"
-      >
-        <Marker
-          coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-          title="Título"
-          description="Descripción"
-        />
-      </MapView>
-
+      <View className="w-full h-[400px] bg-red-400">
+        <PostMap />
+      </View>
       <Text>{idValue}</Text>
     </ScrollView>
   );

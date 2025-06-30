@@ -3,8 +3,9 @@ import TextPoppins from "@/components/text-poppins";
 import TextRoboto from "@/components/text-roboto";
 import useTheme from "@/hooks/use-theme";
 import { Stack } from "expo-router";
-import { Eye, House, Mail, Phone, User } from "lucide-react-native";
+import { Camera, Eye, House, Mail, Phone, User } from "lucide-react-native";
 import {
+  Image,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -17,6 +18,7 @@ import {
 } from "react-native";
 
 const RegisterScreen = () => {
+  const { theme } = useTheme();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -36,6 +38,23 @@ const RegisterScreen = () => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View className="p-6">
+            <View className="relative">
+              <Image
+                className="rounded-full"
+                source={{ uri: "https://picsum.photos/200" }}
+                width={150}
+                height={150}
+              />
+              <TouchableOpacity
+                className="absolute bottom-0 right-2 z-0 bg-zinc-700 p-2 rounded-full"
+                activeOpacity={0.7}
+              >
+                <Camera
+                  size={20}
+                  color={theme === "dark" ? "white" : "#767577"}
+                />
+              </TouchableOpacity>
+            </View>
             <View className="flex flex-col justify-center items-center mt-3 mb-5">
               <TextPoppins
                 text="Regístrate en AdoptaYa"

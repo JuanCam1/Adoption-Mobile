@@ -4,7 +4,7 @@ export const ValueDrawerUserItem = [
   {
     label: "Inicio",
     icon: Home,
-    route: "index",
+    route: "post",
   },
   {
     label: "Favoritos",
