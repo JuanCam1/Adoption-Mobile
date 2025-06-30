@@ -59,4 +59,4 @@ export const dataStories = [
     user_image: userImage,
     pet_image: petImage,
   },
-]
+];

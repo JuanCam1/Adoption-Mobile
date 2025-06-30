@@ -1,24 +1,30 @@
-import InputIcon from "@/components/input-icon";
-import TextPoppins from "@/components/text-poppins";
-import TextRoboto from "@/components/text-roboto";
-import useTheme from "@/hooks/use-theme";
-import { Stack } from "expo-router";
-import { Camera, Eye, House, Mail, Phone, User } from "lucide-react-native";
 import {
   Image,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Switch,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { Stack } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Camera, Eye, House, Mail, Phone, User } from "lucide-react-native";
+import noUser from "../assets/images/no-user.jpg";
+const noUserImage = Image.resolveAssetSource(noUser).uri;
+
+import InputIcon from "@/components/input-icon";
+import TextPoppins from "@/components/text-poppins";
+import TextRoboto from "@/components/text-roboto";
+import useTheme from "@/hooks/use-theme";
+import { useState } from "react";
 
 const RegisterScreen = () => {
   const { theme } = useTheme();
+  const { bottom } = useSafeAreaInsets();
+  const [logoImage] = useState(noUserImage);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -34,36 +40,39 @@ const RegisterScreen = () => {
         contentContainerStyle={{
           flexGrow: 1,
           justifyContent: "center",
+          paddingBottom: bottom + 20,
         }}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View className="p-6">
-            <View className="relative">
-              <Image
-                className="rounded-full"
-                source={{ uri: "https://picsum.photos/200" }}
-                width={150}
-                height={150}
-              />
-              <TouchableOpacity
-                className="absolute bottom-0 right-2 z-0 bg-zinc-700 p-2 rounded-full"
-                activeOpacity={0.7}
-              >
-                <Camera
-                  size={20}
-                  color={theme === "dark" ? "white" : "#767577"}
-                />
-              </TouchableOpacity>
-            </View>
             <View className="flex flex-col justify-center items-center mt-3 mb-5">
               <TextPoppins
                 text="Regístrate en AdoptaYa"
-                className="text-indigo-600 dark:text-indigo-400 text-6xl text-center font-Roboto_ExtraBold mb-6"
+                className="text-indigo-600 dark:text-indigo-400 text-5xl text-center font-Roboto_ExtraBold mb-6"
               />
               <TextRoboto
                 text="Crea una cuenta para encontrar a tu nuevo amigo"
                 className="dark:text-zinc-400 text-center px-6 text-xl"
               />
+            </View>
+            <View className=" flex justify-center items-center">
+              <View className="relative">
+                <Image
+                  className="rounded-full"
+                  source={{ uri: logoImage }}
+                  width={150}
+                  height={150}
+                />
+                <TouchableOpacity
+                  className="absolute bottom-0 right-2 z-0 bg-zinc-700 p-2 rounded-full"
+                  activeOpacity={0.7}
+                >
+                  <Camera
+                    size={20}
+                    color={theme === "dark" ? "white" : "#767577"}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
 
             <View className="w-full flex flex-col gap-6">

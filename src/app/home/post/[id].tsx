@@ -1,9 +1,10 @@
+import { useLocalSearchParams } from "expo-router";
+import { View, Text, Image, Dimensions, ScrollView } from "react-native";
+
 import Divider from "@/components/divider";
 import TextPoppins from "@/components/text-poppins";
 import TextRoboto from "@/components/text-roboto";
 import { dataStories } from "@/data/data_stories";
-import { useLocalSearchParams } from "expo-router";
-import { View, Text, Image, Dimensions, ScrollView } from "react-native";
 import PostMap from "@/modules/posts/components/post-map";
 
 const PostId = () => {

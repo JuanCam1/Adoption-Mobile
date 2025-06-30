@@ -1,13 +1,6 @@
 import { CircleX } from "lucide-react-native";
 import type { FC, ReactNode } from "react";
-import {
-  Image,
-  Modal,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, Modal, Text, TouchableOpacity, View } from "react-native";
 import Divider from "./divider";
 
 interface Props {

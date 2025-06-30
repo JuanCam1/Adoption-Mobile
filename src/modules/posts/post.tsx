@@ -1,5 +1,5 @@
-import { dataStories } from "@/data/data_stories";
 import { FlatList, View } from "react-native";
+import { dataStories } from "@/data/data_stories";
 import PostCard from "./components/post-card";
 
 const Post = () => {

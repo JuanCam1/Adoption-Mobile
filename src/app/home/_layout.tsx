@@ -1,10 +1,10 @@
 import { Image, SafeAreaView, View } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
-import { StatusBar } from "expo-status-bar";
-import { useColorScheme } from "nativewind";
-import { LogOut } from "lucide-react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useColorScheme } from "nativewind";
+import { StatusBar } from "expo-status-bar";
+import { LogOut } from "lucide-react-native";
 import {
   type DrawerContentComponentProps,
   DrawerContentScrollView,

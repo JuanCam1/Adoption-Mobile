@@ -1,6 +1,5 @@
-import { instance } from "@/libs/axios"
-
+import { instance } from "@/libs/axios";
 
 export const getPosts = async () => {
-  return await instance.get("/pet")
-}
+  return await instance.get("/pet");
+};

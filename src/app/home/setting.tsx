@@ -1,5 +1,4 @@
-import TextPoppins from "@/components/text-poppins";
-import useTheme from "@/hooks/use-theme";
+import { View, TouchableOpacity, Image } from "react-native";
 import {
   Bell,
   Camera,
@@ -9,9 +8,10 @@ import {
   Palette,
   Phone,
 } from "lucide-react-native";
-import { View, Text, TouchableOpacity, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import TextPoppins from "@/components/text-poppins";
+import useTheme from "@/hooks/use-theme";
 
 const SettingScreen = () => {
   const { bottom } = useSafeAreaInsets();

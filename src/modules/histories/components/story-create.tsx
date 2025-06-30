@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react-native";
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Pressable, View } from "react-native";
 import logo from "../../../assets/images/no-user.jpg";
 import TextPoppins from "@/components/text-poppins";
 
