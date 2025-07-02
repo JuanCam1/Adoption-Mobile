@@ -51,8 +51,19 @@ export default function Layout() {
             },
           }}
         >
-          <Stack.Screen name="splash" />
-          <Stack.Screen name="index" />
+          <Stack.Screen
+            name="splash"
+            options={{
+              animation: "fade",
+            }}
+          />
+
+          <Stack.Screen
+            name="index"
+            options={{
+              animation: "fade",
+            }}
+          />
 
           <Stack.Screen
             name="login"

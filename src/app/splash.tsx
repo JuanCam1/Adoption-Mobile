@@ -27,16 +27,18 @@ const SplashScreen = () => {
   const textTranslate = useSharedValue(getInitialOffset(direction, distance));
 
   useEffect(() => {
-    // Imagen: entra primero
     logoOpacity.value = withTiming(1, { duration: 800 });
     logoTranslate.value = withTiming(0, { duration: 800 });
 
-    // Texto: entra después con delay
     textOpacity.value = withDelay(600, withTiming(1, { duration: 800 }));
-    textTranslate.value = withDelay(600, withTiming(0, { duration: 800 }));
-
-    // Puedes redirigir aquí si deseas después de x tiempo
-    // runOnJS(router.replace)("/home");
+    textTranslate.value = withDelay(
+      600,
+      withTiming(0, { duration: 800 }, (finished) => {
+        if (finished) {
+          runOnJS(router.push)("/");
+        }
+      }),
+    );
   }, []);
 
   const logoAnimatedStyle = useAnimatedStyle<ImageStyle>(() => ({

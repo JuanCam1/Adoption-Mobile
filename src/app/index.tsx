@@ -50,16 +50,6 @@ const Page = () => {
             className="text-indigo-600 text-lg font-Roboto_Bold bg-white px-6 py-3 rounded-md"
           />
         </TouchableOpacity>
-
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => handleNavigate("/splash")}
-        >
-          <TextRoboto
-            text="splash"
-            className="text-indigo-600 text-lg font-Roboto_Bold bg-white px-6 py-3 rounded-md"
-          />
-        </TouchableOpacity>
       </View>
     </View>
   );
