@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
@@ -13,7 +13,6 @@ import { query } from "@/libs/query";
 import "../global.css";
 
 SplashScreen.preventAutoHideAsync();
-ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
 
 export default function Layout() {
   const { colorScheme } = useColorScheme();
@@ -27,19 +26,23 @@ export default function Layout() {
   });
 
   useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
+    async function prepare() {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT_UP,
+      );
+      if (loaded || error) {
+        await SplashScreen.hideAsync();
+      }
     }
+    prepare();
   }, [loaded, error]);
 
-  if (!loaded && !error) {
-    return null;
-  }
+  if (!loaded && !error) return null;
   return (
     <QueryClientProvider client={query}>
       <ThemeProvider>
         <Stack
-          initialRouteName="home"
+          initialRouteName="splash"
           screenOptions={{
             headerShown: false,
             contentStyle: {
@@ -48,6 +51,7 @@ export default function Layout() {
             },
           }}
         >
+          <Stack.Screen name="splash" />
           <Stack.Screen name="index" />
 
           <Stack.Screen

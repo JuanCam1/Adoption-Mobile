@@ -22,13 +22,13 @@ const Page = () => {
       />
 
       <View className="flex gap-2 items-center">
-        <TextPoppins
+        <TextRoboto
           text="AdoptaYa"
           className="text-white text-6xl text-center font-Roboto_ExtraBold"
         />
         <TextRoboto
           text="Encuentra a tu nuevo mejor amigo. Adopta con un toque. 🐾"
-          className="dark:text-zinc-800 text-center px-6 text-xl font-Roboto_Bold"
+          className="dark:text-zinc-700 text-center px-6 text-xl font-Roboto_Bold"
         />
       </View>
       <View className="flex gap-3 flex-row items-center">
@@ -47,6 +47,16 @@ const Page = () => {
         >
           <TextRoboto
             text="Registrarse"
+            className="text-indigo-600 text-lg font-Roboto_Bold bg-white px-6 py-3 rounded-md"
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => handleNavigate("/splash")}
+        >
+          <TextRoboto
+            text="splash"
             className="text-indigo-600 text-lg font-Roboto_Bold bg-white px-6 py-3 rounded-md"
           />
         </TouchableOpacity>
