@@ -8,10 +8,11 @@ interface Props {
   onClose: () => void;
   title: string;
   image: string;
-  ubication: string;
+  ubication?: string;
   children: ReactNode;
   transparent?: boolean;
   animationType?: "fade" | "none" | "slide";
+  height: string;
 }
 const ModalLayout: FC<Props> = ({
   onClose,
@@ -22,6 +23,7 @@ const ModalLayout: FC<Props> = ({
   ubication,
   transparent,
   animationType = "none",
+  height = "h-[80%]",
 }) => {
   return (
     <Modal
@@ -31,21 +33,33 @@ const ModalLayout: FC<Props> = ({
       onRequestClose={onClose}
     >
       <View className="flex-1 bg-black/80 items-center justify-center">
-        <View className="bg-white dark:bg-zinc-900 rounded-2xl p-6 w-[95%] h-[80%]">
+        <View
+          className={`bg-white dark:bg-zinc-900 rounded-2xl p-6 w-[95%] ${height}`}
+        >
           <View className="flex flex-row justify-between items-center">
             <View className="flex flex-row gap-3 itemc-center">
               <Image
-                source={{ uri: image }}
+                source={{
+                  uri: `${process.env.EXPO_PUBLIC_STATIC_DEV}/user/${image}`,
+                }}
                 className="size-10 rounded-full object-contain"
               />
 
-              <View className="flex flex-col ">
-                <Text className="text-base font-bold text-black dark:text-white ">
+              <View
+                className={`flex flex-col  ${!ubication && "items-center justify-center"}`}
+              >
+                <Text
+                  className={`font-bold text-black dark:text-white ${
+                    !ubication ? "text-2xl" : "text-base"
+                  }`}
+                >
                   {title}
                 </Text>
-                <Text className="text-sm text-gray-700 dark:text-gray-400  font-semibold ">
-                  {ubication}
-                </Text>
+                {ubication && (
+                  <Text className="text-sm text-gray-700 dark:text-gray-400  font-semibold ">
+                    {ubication}
+                  </Text>
+                )}
               </View>
             </View>
 

@@ -6,6 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useColorScheme } from "nativewind";
 import { QueryClientProvider } from "@tanstack/react-query";
+import Toast from "react-native-toast-message";
 
 import { ThemeProvider } from "@/context/theme-context";
 import BackButton from "@/components/back-button";
@@ -97,6 +98,7 @@ export default function Layout() {
           />
         </Stack>
         <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+        <Toast />
       </ThemeProvider>
     </QueryClientProvider>
   );

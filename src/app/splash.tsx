@@ -18,11 +18,9 @@ const SplashScreen = () => {
   const direction: Direction = "top";
   const distance = 60;
 
-  // Animaciones para imagen
   const logoOpacity = useSharedValue(0);
   const logoTranslate = useSharedValue(getInitialOffset(direction, distance));
 
-  // Animaciones para texto + emoji
   const textOpacity = useSharedValue(0);
   const textTranslate = useSharedValue(getInitialOffset(direction, distance));
 

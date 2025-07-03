@@ -1,14 +1,40 @@
-import { Camera, Eye, House, Mail, Phone, User } from "lucide-react-native";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import {
+  Camera,
+  Eye,
+  House,
+  Mail,
+  MapPin,
+  Phone,
+  User,
+} from "lucide-react-native";
 import InputIcon from "@/components/input-icon";
 import TextRoboto from "@/components/text-roboto";
 import useTheme from "@/hooks/use-theme";
 import useRegister from "./hooks/use-register";
+import InputPassword from "@/components/input-password";
+import OTPModal from "./components/otp-modal";
 
 const RegisterForm = () => {
   const { theme } = useTheme();
-  const { logoImage, user, handleChange, handleSubmit, pickImage } =
-    useRegister();
+  const {
+    logoImage,
+    user,
+    handleChange,
+    handleSubmit,
+    imageRegister,
+    isPending,
+    isSuccess,
+    dataUser,
+    isActive,
+    onCloseActive,
+  } = useRegister();
   return (
     <>
       <View className=" flex justify-center items-center">
@@ -22,7 +48,7 @@ const RegisterForm = () => {
           <TouchableOpacity
             className="absolute bottom-0 right-2 z-0 bg-zinc-700 p-2 rounded-full"
             activeOpacity={0.7}
-            onPress={pickImage}
+            onPress={imageRegister}
           >
             <Camera size={20} color={theme === "dark" ? "white" : "#767577"} />
           </TouchableOpacity>
@@ -64,6 +90,17 @@ const RegisterForm = () => {
         </View>
 
         <View className="flex flex-col gap-2">
+          <Text className="text-zinc-800 dark:text-zinc-200">Dirección</Text>
+          <InputIcon
+            icon={MapPin}
+            value={user.address}
+            onChangeText={(value) => handleChange("address", value)}
+            classNameInput="text-zinc-800 dark:text-zinc-200"
+            keyboardType="email-address"
+          />
+        </View>
+
+        <View className="flex flex-col gap-2">
           <Text className="text-zinc-800 dark:text-zinc-200">
             Correo Electronico
           </Text>
@@ -78,12 +115,10 @@ const RegisterForm = () => {
 
         <View className="flex flex-col gap-2">
           <Text className="text-zinc-800 dark:text-zinc-200">Contraseña</Text>
-          <InputIcon
-            icon={Eye}
+          <InputPassword
             value={user.password}
             onChangeText={(value) => handleChange("password", value)}
             classNameInput="text-zinc-800 dark:text-zinc-200"
-            secureTextEntry
           />
         </View>
         <TouchableOpacity
@@ -91,12 +126,20 @@ const RegisterForm = () => {
           className="bg-indigo-500 w-full rounded-md h-12 flex items-center justify-center"
           activeOpacity={0.7}
         >
-          <TextRoboto
-            text="Crear Cuenta"
-            className="text-white text-center py-2 "
-          />
+          {isPending ? (
+            <ActivityIndicator />
+          ) : (
+            <TextRoboto
+              text="Crear Cuenta"
+              className="text-white text-center py-2 "
+            />
+          )}
         </TouchableOpacity>
       </View>
+
+      {isSuccess && dataUser && (
+        <OTPModal user={dataUser} visible={isActive} onClose={onCloseActive} />
+      )}
     </>
   );
 };
