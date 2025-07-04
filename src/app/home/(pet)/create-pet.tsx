@@ -1,31 +1,24 @@
+import TextPoppins from "@/components/text-poppins";
+import TextRoboto from "@/components/text-roboto";
+import PetForm from "@/modules/pets/sections/pet-form";
+import { Stack } from "expo-router";
 import {
-  Keyboard,
+  View,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Keyboard,
   TouchableWithoutFeedback,
-  View,
 } from "react-native";
-import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-import TextPoppins from "@/components/text-poppins";
-import TextRoboto from "@/components/text-roboto";
-import RegisterForm from "@/modules/auth/register/sections/register-form";
-
-const RegisterScreen = () => {
+const CreatePet = () => {
   const { bottom } = useSafeAreaInsets();
-
   return (
     <KeyboardAvoidingView
+      className="dark:bg-zinc-900"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
     >
-      <Stack
-        screenOptions={{
-          headerShown: true,
-        }}
-      />
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
@@ -38,20 +31,20 @@ const RegisterScreen = () => {
           <View className="p-6">
             <View className="flex flex-col justify-center items-center mt-3 mb-5">
               <TextPoppins
-                text="Regístrate en AdoptaYa"
+                text="Regístrate la mascota"
                 className="text-indigo-600 dark:text-indigo-400 text-5xl text-center font-Roboto_ExtraBold mb-6"
               />
               <TextRoboto
-                text="Crea una cuenta para encontrar a tu nuevo amigo"
+                text="Registra tu mascota para que puedan publicar y la puedan adoptar"
                 className="dark:text-zinc-400 text-center px-6 text-xl"
               />
             </View>
 
-            <RegisterForm />
+            <PetForm />
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 };
-export default RegisterScreen;
+export default CreatePet;

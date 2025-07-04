@@ -44,6 +44,13 @@ const Layout = () => {
           }}
         />
         <Drawer.Screen
+          name="(pet)"
+          options={{
+            drawerLabel: "Mascotas",
+            title: "Mascotas",
+          }}
+        />
+        <Drawer.Screen
           name="favorite"
           options={{
             drawerLabel: "Favoritos",

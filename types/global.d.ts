@@ -4,6 +4,7 @@ import {
   LoginModel,
   RegisterModel,
 } from "./auth-model";
+import { PetModel, PetRequestModel } from "./pet-model";
 import { PickImageModel } from "./pick-model";
 import { SendResponseModel } from "./response-model";
 import { StoryModel } from "./story-model";
@@ -16,7 +17,9 @@ declare global {
   type RegisterModelI = RegisterModel;
   type PayloadModelI = PayloadModel;
   type ResponseLoginModelI = ResponseLoginModel;
-  type PickImageModelI = PickImageModelb;
+  type PickImageModelI = PickImageModel;
 
   type UserModelI = UserModel;
+  type PetModelI = PetModel;
+  type PetRequestModelI = PetRequestModel;
 }

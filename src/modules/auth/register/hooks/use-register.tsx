@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Image } from "react-native";
-import noUser from "../../../../assets/images/no-user.jpg";
-import { fetchBlob } from "@/utils/blob";
 import { useMutation } from "@tanstack/react-query";
-import { registerUserService } from "../services/register-service";
 import Toast from "react-native-toast-message";
+import noUser from "../../../../assets/images/no-user.jpg";
+import { registerUserService } from "../services/register-service";
 import { pickImage } from "@/libs/picker";
 const noUserImage = Image.resolveAssetSource(noUser).uri;
 
@@ -89,11 +88,11 @@ const useRegister = () => {
     }
 
     const locationLength = user.location.length;
-    if (locationLength < 6 && locationLength > 50) {
+    if (locationLength < 3 && locationLength > 50) {
       Toast.show({
         type: "error",
         text1: "Error de validación",
-        text2: "EL lugar debe tener entre 6 y 50 caracteres",
+        text2: "EL lugar debe tener entre 3 y 50 caracteres",
       });
       return;
     }

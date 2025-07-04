@@ -1,10 +1,15 @@
-import { HeartPlus, Home, Settings, User } from "lucide-react-native";
+import { HeartPlus, Home, Settings, User, PawPrint } from "lucide-react-native";
 
 export const ValueDrawerUserItem = [
   {
     label: "Inicio",
     icon: Home,
     route: "post",
+  },
+  {
+    label: "Mascota",
+    icon: PawPrint,
+    route: "(pet)",
   },
   {
     label: "Favoritos",

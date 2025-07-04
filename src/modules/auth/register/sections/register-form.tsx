@@ -5,21 +5,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {
-  Camera,
-  Eye,
-  House,
-  Mail,
-  MapPin,
-  Phone,
-  User,
-} from "lucide-react-native";
+import { Camera, House, Mail, MapPin, Phone, User } from "lucide-react-native";
 import InputIcon from "@/components/input-icon";
 import TextRoboto from "@/components/text-roboto";
 import useTheme from "@/hooks/use-theme";
-import useRegister from "./hooks/use-register";
+import useRegister from "../hooks/use-register";
 import InputPassword from "@/components/input-password";
-import OTPModal from "./components/otp-modal";
+import OTPModal from "../components/otp-modal";
 
 const RegisterForm = () => {
   const { theme } = useTheme();
@@ -63,7 +55,6 @@ const RegisterForm = () => {
             value={user.name}
             onChangeText={(value) => handleChange("name", value)}
             classNameInput="text-zinc-800 dark:text-zinc-200"
-            keyboardType="email-address"
           />
         </View>
 
@@ -74,7 +65,6 @@ const RegisterForm = () => {
             value={user.phone}
             onChangeText={(value) => handleChange("phone", value)}
             classNameInput="text-zinc-800 dark:text-zinc-200"
-            keyboardType="email-address"
           />
         </View>
 
@@ -85,7 +75,6 @@ const RegisterForm = () => {
             value={user.location}
             onChangeText={(value) => handleChange("location", value)}
             classNameInput="text-zinc-800 dark:text-zinc-200"
-            keyboardType="email-address"
           />
         </View>
 
@@ -96,7 +85,6 @@ const RegisterForm = () => {
             value={user.address}
             onChangeText={(value) => handleChange("address", value)}
             classNameInput="text-zinc-800 dark:text-zinc-200"
-            keyboardType="email-address"
           />
         </View>
 
@@ -109,7 +97,6 @@ const RegisterForm = () => {
             value={user.email}
             onChangeText={(value) => handleChange("email", value)}
             classNameInput="text-zinc-800 dark:text-zinc-200"
-            keyboardType="email-address"
           />
         </View>
 

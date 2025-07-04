@@ -69,7 +69,7 @@ const LoginScreen = () => {
                 />
               </View>
               <TouchableOpacity
-                onPress={() => router.push("home")}
+                onPress={() => router.push("home/post")}
                 className="bg-indigo-500 w-full rounded-md h-12 flex items-center justify-center"
                 activeOpacity={0.7}
               >
