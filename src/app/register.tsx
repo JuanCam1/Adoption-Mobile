@@ -26,15 +26,14 @@ const RegisterScreen = () => {
           headerShown: true,
         }}
       />
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "center",
-          paddingBottom: bottom + 20,
-        }}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingBottom: bottom + 20,
+          }}
+        >
           <View className="p-6">
             <View className="flex flex-col justify-center items-center mt-3 mb-5">
               <TextPoppins
@@ -49,8 +48,8 @@ const RegisterScreen = () => {
 
             <RegisterForm />
           </View>
-        </TouchableWithoutFeedback>
-      </ScrollView>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };

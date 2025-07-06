@@ -4,14 +4,16 @@ import {
   LoginModel,
   RegisterModel,
 } from "./auth-model";
+import { GenderModel } from "./gender-model";
 import { PetModel, PetRequestModel } from "./pet-model";
 import { PickImageModel } from "./pick-model";
 import { SendResponseModel } from "./response-model";
 import { StoryModel } from "./story-model";
+import { TypePetModel } from "./type-pet-model";
 import { UserModel } from "./user-model";
 
 declare global {
-  type SendResponseModelI<T> = SendResponseModel;
+  type SendResponseModelI<T> = SendResponseModel<T>;
   type StoryModelI = StoryModel;
   type LoginModelI = LoginModel;
   type RegisterModelI = RegisterModel;
@@ -22,4 +24,7 @@ declare global {
   type UserModelI = UserModel;
   type PetModelI = PetModel;
   type PetRequestModelI = PetRequestModel;
+
+  type GenderModelI = GenderModel;
+  type TypePetModelI = TypePetModel;
 }

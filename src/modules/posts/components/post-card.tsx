@@ -10,7 +10,7 @@ interface Props {
 const PostCard: FC<Props> = ({ item }) => {
   return (
     <Link href={`/home/post/${item.id.toString()}`}>
-      <View className="min-h-[300px] max-h-[500px] bg-white dark:bg-zinc-800 rounded-md overflow-hidden ">
+      <View className="min-h-[300px] max-h-[500px] bg-white dark:bg-zinc-800 rounded-2xl overflow-hidden ">
         <View className="h-[15%] flex flex-row items-center justify-between px-4 py-3">
           <View className="flex flex-row items-center gap-3">
             <Image
@@ -31,7 +31,7 @@ const PostCard: FC<Props> = ({ item }) => {
         <View className="h-48 w-full px-4 mb-2">
           <Image
             source={{ uri: item.pet_image }}
-            className="w-full h-full rounded-md object-cover"
+            className="w-full h-full rounded-2xl object-cover"
           />
         </View>
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Image } from "react-native";
 import { useMutation } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
@@ -6,11 +6,19 @@ import Toast from "react-native-toast-message";
 import noUser from "../../../assets/images/logo.png";
 import { savePetService } from "../services/pet-service";
 import { pickImage } from "@/libs/picker";
+import type { Picker } from "@react-native-picker/picker";
+import { getGenderService } from "../services/gender-service";
+import { getTypePetService } from "../services/type-pet-service";
 const noUserImage = Image.resolveAssetSource(noUser).uri;
 
 const usePetForm = () => {
   const [logoImage, setLogoImage] = useState(noUserImage);
   const [logoBlob, setLogoBlob] = useState<PickImageModelI | null>(null);
+  const [selectedGender, setSelectedGender] = useState(null);
+  const [selectedType, setSelectedType] = useState(null);
+
+  const [genders, setGenders] = useState<GenderModelI[]>([]);
+  const [types, setTypes] = useState<TypePetModelI[]>([]);
 
   const [pet, setPet] = useState({
     name: "",
@@ -22,6 +30,24 @@ const usePetForm = () => {
     breed: "",
     userId: "",
   });
+
+  useEffect(() => {
+    const fetchDataInitial = async () => {
+      try {
+        const [genders, types] = await Promise.all([
+          getGenderService(),
+          getTypePetService(),
+        ]);
+
+        setGenders(genders.data.data);
+        setTypes(types.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDataInitial();
+  }, []);
 
   const mutationPetCreate = useMutation({
     mutationFn: (data: PetModelI) => savePetService(data),
@@ -163,6 +189,12 @@ const usePetForm = () => {
     isPending: mutationPetCreate.isPending,
     isError: mutationPetCreate.isError,
     isSuccess: mutationPetCreate.isSuccess,
+    genders,
+    types,
+    selectedGender,
+    setSelectedGender,
+    selectedType,
+    setSelectedType,
   };
 };
 

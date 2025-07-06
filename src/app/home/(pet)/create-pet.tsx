@@ -1,7 +1,6 @@
 import TextPoppins from "@/components/text-poppins";
 import TextRoboto from "@/components/text-roboto";
 import PetForm from "@/modules/pets/sections/pet-form";
-import { Stack } from "expo-router";
 import {
   View,
   KeyboardAvoidingView,
@@ -11,23 +10,28 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 const CreatePet = () => {
   const { bottom } = useSafeAreaInsets();
+
   return (
-    <KeyboardAvoidingView
-      className="dark:bg-zinc-900"
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
-    >
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "center",
-          paddingBottom: bottom + 20,
-        }}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        className="dark:bg-zinc-900"
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          style={{ flex: 1 }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingBottom: bottom + 20,
+          }}
+          showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
+        >
           <View className="p-6">
             <View className="flex flex-col justify-center items-center mt-3 mb-5">
               <TextPoppins
@@ -42,9 +46,9 @@ const CreatePet = () => {
 
             <PetForm />
           </View>
-        </TouchableWithoutFeedback>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 export default CreatePet;
