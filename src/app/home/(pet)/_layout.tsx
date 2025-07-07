@@ -1,7 +1,7 @@
-import { Tabs } from "expo-router";
-import { Home } from "lucide-react-native";
-import { useColorScheme } from "nativewind";
 import { View } from "react-native";
+import { Tabs } from "expo-router";
+import { CirclePlus, PawPrint } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function PetLayout() {
@@ -15,7 +15,9 @@ export default function PetLayout() {
 
   return (
     <Tabs
+      initialRouteName="info"
       screenOptions={{
+        tabBarActiveTintColor: "#6366f1",
         headerShown: false,
         tabBarStyle: {
           paddingTop: 10,
@@ -35,7 +37,9 @@ export default function PetLayout() {
         name="info"
         options={{
           title: "Mascotas",
-          tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => (
+            <PawPrint size={size} color={color} />
+          ),
         }}
       />
 
@@ -43,7 +47,9 @@ export default function PetLayout() {
         name="create-pet"
         options={{
           title: "Agregar Mascota",
-          tabBarIcon: ({ color, size }) => <Home size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => (
+            <CirclePlus size={size} color={color} />
+          ),
         }}
       />
     </Tabs>

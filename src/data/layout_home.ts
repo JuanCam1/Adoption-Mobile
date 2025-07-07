@@ -4,17 +4,20 @@ export const ValueDrawerUserItem = [
   {
     label: "Inicio",
     icon: Home,
-    route: "post",
+    route: "/home/post",
+    match: "/home/post",
   },
   {
     label: "Mascota",
     icon: PawPrint,
-    route: "(pet)",
+    route: "/home/(pet)/info",
+    match: "/home/info",
   },
   {
     label: "Favoritos",
     icon: HeartPlus,
-    route: "favorite",
+    route: "/home/favorite",
+    match: "/home/favorite",
   },
 ];
 
@@ -22,11 +25,13 @@ export const ValueDrawerAdminItem = [
   {
     label: "Perfil",
     icon: User,
-    route: "profile",
+    route: "/home/profile",
+    match: "/home/profile",
   },
   {
     label: "Configuración",
     icon: Settings,
-    route: "setting",
+    route: "/home/setting",
+    match: "/home/setting",
   },
 ];

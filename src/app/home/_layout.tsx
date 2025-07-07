@@ -5,16 +5,19 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColorScheme } from "nativewind";
 import { StatusBar } from "expo-status-bar";
 import { LogOut } from "lucide-react-native";
+import logoUser from "@/assets/images/no-user.jpg";
 import {
   type DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItem,
 } from "@react-navigation/drawer";
 
+const userImage = Image.resolveAssetSource(logoUser).uri;
 import TextRoboto from "@/components/text-roboto";
 import TextPoppins from "@/components/text-poppins";
 import { ValueDrawerAdminItem, ValueDrawerUserItem } from "@/data/layout_home";
 import Divider from "@/components/divider";
+import { usePathname, useRouter } from "expo-router";
 
 const Layout = () => {
   const { colorScheme } = useColorScheme();
@@ -80,8 +83,10 @@ const Layout = () => {
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { colorScheme } = useColorScheme();
   const { top } = useSafeAreaInsets();
+  const router = useRouter();
   const isDark = colorScheme === "dark";
-  const currentRoute = props.state.routeNames[props.state.index];
+  // const currentRoute2 = props.state.routeNames[props.state.index];
+  const currentRoute = usePathname();
 
   const bgColor = isDark ? "#18181b" : "#fafafa";
 
@@ -104,18 +109,15 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         }}
       >
         <View className="items-center rounded-md px-4 py-6 flex felx-col gap-4">
-          <Image
-            source={{ uri: "https://i.pravatar.cc/150?img=3" }}
-            className="size-40 rounded-full"
-          />
+          <Image source={{ uri: userImage }} className="size-40 rounded-full" />
           <View className="flex justify-center items-center pt-4">
             <TextRoboto
               text="Juan Camilo Rojas Diaz"
-              className="text-xl font-bold text-gray-900 dark:text-white"
+              className="text-2xl font-bold text-gray-900 dark:text-indigo-500"
             />
             <TextPoppins
               text="juan.camilo@email.com"
-              className="text-base text-gray-800 dark:text-gray-400 font-semibold"
+              className="text-base text-gray-800 dark:text-indigo-300 font-semibold"
             />
           </View>
         </View>
@@ -126,12 +128,12 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
               <DrawerItem
                 key={item.label}
                 label={item.label}
-                onPress={() => props.navigation.navigate(item.route)}
+                onPress={() => router.replace(item.route)}
                 icon={({ size }) => (
                   <item.icon
                     size={size}
                     color={
-                      currentRoute === item.route
+                      currentRoute === item.match
                         ? activeTextColor
                         : inactiveTextColor
                     }
@@ -141,7 +143,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
                   fontSize: 16,
                   fontWeight: "400",
                   color:
-                    currentRoute === item.route
+                    currentRoute === item.match
                       ? activeTextColor
                       : inactiveTextColor,
                 }}
@@ -151,7 +153,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
                   paddingVertical: 0,
                   marginBottom: 4,
                   backgroundColor:
-                    currentRoute === item.route ? activeBgColor : "transparent",
+                    currentRoute === item.match ? activeBgColor : "transparent",
                 }}
               />
             ))}
@@ -164,12 +166,12 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
               <DrawerItem
                 key={item.label}
                 label={item.label}
-                onPress={() => props.navigation.navigate(item.route)}
+                onPress={() => router.replace(item.route)}
                 icon={({ size }) => (
                   <item.icon
                     size={size}
                     color={
-                      currentRoute === item.route
+                      currentRoute === item.match
                         ? activeTextColor
                         : inactiveTextColor
                     }
@@ -179,13 +181,17 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
                   fontSize: 16,
                   fontWeight: "400",
                   color:
-                    currentRoute === item.route
+                    currentRoute === item.match
                       ? activeTextColor
                       : inactiveTextColor,
                 }}
                 style={{
+                  borderRadius: 4,
+                  marginVertical: 4,
+                  paddingVertical: 0,
+                  marginBottom: 4,
                   backgroundColor:
-                    currentRoute === item.route ? activeBgColor : "transparent",
+                    currentRoute === item.match ? activeBgColor : "transparent",
                 }}
               />
             ))}
