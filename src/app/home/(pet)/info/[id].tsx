@@ -7,14 +7,13 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-
+import { ArrowLeft } from "lucide-react-native";
 import Divider from "@/components/divider";
 import TextPoppins from "@/components/text-poppins";
 import TextRoboto from "@/components/text-roboto";
-import { dataStories } from "@/data/data_stories";
 import PostMap from "@/modules/posts/components/post-map";
-import { ArrowLeft } from "lucide-react-native";
 import useTheme from "@/hooks/use-theme";
+import { mascotas } from "@/data/data_pet";
 
 const PetId = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -22,7 +21,7 @@ const PetId = () => {
   const screenWidth = Dimensions.get("window").width;
   const idValue = id ?? "No id";
 
-  const dataPet = dataStories.find((item) => item.id === Number(idValue));
+  const dataPet = mascotas.find((item) => item.id === Number(idValue));
   const router = useRouter();
   return (
     <View className="flex flex-1">
@@ -34,13 +33,13 @@ const PetId = () => {
       </TouchableOpacity>
       <ScrollView className=" flex-1 px-4 pt-2 mb-8">
         <Image
-          source={{ uri: dataPet.pet_image }}
+          source={{ uri: dataPet.picture }}
           width={screenWidth - 32}
           height={300}
           className="rounded-md object-cover"
         />
         <TextPoppins
-          text={dataPet.pet_name}
+          text={dataPet.nombre}
           className="text-4xl font-bold dark:text-indigo-400 mt-6"
         />
         <TextRoboto

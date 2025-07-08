@@ -7,16 +7,20 @@ interface Props {
   visible: boolean;
   onClose: () => void;
   title: string;
+  image: string;
+  ubication?: string;
   children: ReactNode;
   transparent?: boolean;
   animationType?: "fade" | "none" | "slide";
   height?: string;
 }
-const ModalLayout: FC<Props> = ({
+const ModalImageLayout: FC<Props> = ({
   onClose,
   visible,
   children,
   title,
+  image,
+  ubication,
   transparent,
   animationType = "none",
   height = "h-[80%]",
@@ -34,10 +38,28 @@ const ModalLayout: FC<Props> = ({
         >
           <View className="flex flex-row justify-between items-center">
             <View className="flex flex-row gap-3 itemc-center">
-              <View className="flex flex-col items-center justify-center">
-                <Text className="font-bold text-black dark:text-white text-2xl">
+              <Image
+                source={{
+                  uri: `${process.env.EXPO_PUBLIC_STATIC_DEV}/user/${image}`,
+                }}
+                className="size-10 rounded-full object-contain"
+              />
+
+              <View
+                className={`flex flex-col  ${!ubication && "items-center justify-center"}`}
+              >
+                <Text
+                  className={`font-bold text-black dark:text-white ${
+                    !ubication ? "text-2xl" : "text-base"
+                  }`}
+                >
                   {title}
                 </Text>
+                {ubication && (
+                  <Text className="text-sm text-gray-700 dark:text-gray-400  font-semibold ">
+                    {ubication}
+                  </Text>
+                )}
               </View>
             </View>
 
@@ -57,4 +79,4 @@ const ModalLayout: FC<Props> = ({
     </Modal>
   );
 };
-export default ModalLayout;
+export default ModalImageLayout;

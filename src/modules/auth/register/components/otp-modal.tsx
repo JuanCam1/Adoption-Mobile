@@ -1,5 +1,5 @@
 import AnimatedStripeOTPInput from "@/components/input-otp";
-import ModalLayout from "@/components/modal-layout";
+import ModalLayout from "@/components/modal-image-layout";
 import TextRoboto from "@/components/text-roboto";
 import type { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";

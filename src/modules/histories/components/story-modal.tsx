@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { Image } from "react-native";
-import ModalLayout from "@/components/modal-layout";
+import ModalImageLayout from "@/components/modal-image-layout";
 
 interface Props {
   story: StoryModelI;
@@ -9,7 +9,7 @@ interface Props {
 }
 const StoryModal: FC<Props> = ({ story, onClose, visible }) => {
   return (
-    <ModalLayout
+    <ModalImageLayout
       visible={visible}
       onClose={onClose}
       animationType="slide"
@@ -22,7 +22,7 @@ const StoryModal: FC<Props> = ({ story, onClose, visible }) => {
         source={{ uri: story.pet_image }}
         className="w-full h-[90%] object-cover rounded-md"
       />
-    </ModalLayout>
+    </ModalImageLayout>
   );
 };
 export default StoryModal;
