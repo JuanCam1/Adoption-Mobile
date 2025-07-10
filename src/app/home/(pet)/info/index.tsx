@@ -1,30 +1,33 @@
-import TextPoppins from "@/components/text-poppins";
-import { useCallback, useRef, useState } from "react";
-import {
-  Image,
-  ScrollView,
-  Text,
-  View,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback } from "react";
+import { View, TouchableOpacity, ActivityIndicator } from "react-native";
+import { useFocusEffect } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { CirclePlus, Eye, SquarePen, Trash2 } from "lucide-react-native";
-import type BottomSheet from "@gorhom/bottom-sheet";
 
+import TextPoppins from "@/components/text-poppins";
 import TextRoboto from "@/components/text-roboto";
 import BottomSheetComponent from "@/components/bottom-sheet";
-import { mascotas } from "@/data/data_pet";
 import PetCreatePostModal from "@/modules/pets/components/pet-create-post-modal";
 import PetEditModal from "@/modules/pets/components/pet-edit-modal";
+import useListPets from "@/modules/pets/hooks/use-list-pets";
+import ListPets from "@/modules/pets/sections/list-pets";
 
 const PetScreen = () => {
-  const bottomSheetRef = useRef<BottomSheet>(null);
-  const router = useRouter();
-  const [selectedPet, setSelectedPet] = useState<null | (typeof mascotas)[0]>(
-    null,
-  );
+  const {
+    bottomSheetRef,
+    router,
+    selectedPet,
+    closeBottomSheet,
+    handleOpenBottomSheet,
+    handleSheetChanges,
+    isCreateModalVisible,
+    isEditModalVisible,
+    handleCreateModal,
+    handleEditModal,
+    handleCloseCreateModal,
+    handleCloseEditModal,
+    setSelectedPet,
+  } = useListPets();
 
   useFocusEffect(
     useCallback(() => {
@@ -33,84 +36,14 @@ const PetScreen = () => {
     }, []),
   );
 
-  const closeBottomSheet = () => {
-    bottomSheetRef.current?.close();
-  };
-
-  const handleOpenBottomSheet = (pet: (typeof mascotas)[0]) => {
-    setSelectedPet(pet);
-    bottomSheetRef.current?.expand();
-  };
-
-  const handleSheetChanges = useCallback((index: number) => {
-    if (index === -1) setSelectedPet(null);
-  }, []);
-
-  const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
-  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-
-  const handleCreateModal = () => {
-    setIsCreateModalVisible(true);
-  };
-
-  const handleEditModal = () => {
-    setIsEditModalVisible(true);
-  };
-
-  const handleCloseCreateModal = () => {
-    setIsCreateModalVisible(false);
-  };
-
-  const handleCloseEditModal = () => {
-    setIsEditModalVisible(false);
-  };
-
   return (
     <GestureHandlerRootView className="flex-1 p-4">
       <TextPoppins
         text="Mis Mascotas"
-        className="text-indigo-600 dark:text-indigo-400 text-5xl text-center font-Roboto_ExtraBold mb-6"
+        className="text-indigo-600 dark:text-indigo-400 text-5xl text-center font-Roboto_ExtraBold m-4"
       />
 
-      <ScrollView>
-        <View className="flex flex-row flex-wrap justify-center gap-4 py-2">
-          {mascotas.map((pet, index) => (
-            <Pressable
-              key={index}
-              onPress={() => handleOpenBottomSheet(pet)}
-              className="w-[45%] dark:bg-zinc-800 bg-white rounded-2xl p-4 shadow-md dark:shadow-zinc-900"
-            >
-              <Image
-                source={{ uri: pet.picture }}
-                className="rounded-xl bg-zinc-200 dark:bg-zinc-700 w-full h-40"
-                resizeMode="cover"
-              />
-              <View className="mt-4 space-y-2">
-                <View className="flex flex-row justify-between items-center">
-                  <TextPoppins
-                    text="Nombre"
-                    className="text-sm text-zinc-600 dark:text-indigo-400"
-                  />
-                  <TextRoboto
-                    text={pet.nombre}
-                    className="text-sm font-semibold text-zinc-800 dark:text-zinc-200"
-                  />
-                </View>
-                <View className="flex flex-row justify-between items-center">
-                  <TextPoppins
-                    text="Edad"
-                    className="text-sm text-zinc-600 dark:text-indigo-400"
-                  />
-                  <TextRoboto
-                    text={pet.edad}
-                    className="text-sm font-semibold text-zinc-800 dark:text-zinc-200"
-                  />
-                </View>
-              </View>
-            </Pressable>
-          ))}
-        </View>
-      </ScrollView>
+      <ListPets handleOpenBottomSheet={handleOpenBottomSheet} />
 
       {selectedPet && (
         <BottomSheetComponent
@@ -121,7 +54,7 @@ const PetScreen = () => {
             <>
               <TextRoboto
                 className="text-3xl font-bold mb-4 text-indigo-400 text-center w-full"
-                text={`Mascota: ${selectedPet.nombre}`}
+                text={`Mascota: ${selectedPet.name}`}
               />
 
               <View className="flex flex-col gap-6">
@@ -172,7 +105,7 @@ const PetScreen = () => {
               </View>
             </>
           ) : (
-            <Text>Cargando...</Text>
+            <ActivityIndicator size="large" color="white" />
           )}
         </BottomSheetComponent>
       )}

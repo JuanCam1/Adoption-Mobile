@@ -20,3 +20,8 @@ export const savePetService = async (pet: PetModelI) => {
     },
   });
 };
+
+export const listPetsByIdService = async ({ pageParam = 1 }) => {
+  const id = "e5ad63e0-d94d-4c84-8fd2-24e31c29c12a";
+  return instance.get<SendResponseModelI<ListPetByUserModelI>>(`/pet/${id}?page=${pageParam}`);
+};

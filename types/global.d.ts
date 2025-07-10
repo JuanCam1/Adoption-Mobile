@@ -5,7 +5,7 @@ import {
   RegisterModel,
 } from "./auth-model";
 import { GenderModel } from "./gender-model";
-import { PetModel, PetRequestModel } from "./pet-model";
+import { ListPetByUserModel, PetListModel, PetModel, PetRequestModel } from "./pet-model";
 import { PickImageModel } from "./pick-model";
 import { SendResponseModel } from "./response-model";
 import { StoryModel } from "./story-model";
@@ -24,6 +24,8 @@ declare global {
   type UserModelI = UserModel;
   type PetModelI = PetModel;
   type PetRequestModelI = PetRequestModel;
+  type ListPetByUserModelI = ListPetByUserModel;
+  type PetListModelI = PetListModel;
 
   type GenderModelI = GenderModel;
   type TypePetModelI = TypePetModel;
