@@ -148,10 +148,10 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
                       : inactiveTextColor,
                 }}
                 style={{
-                  borderRadius: 4,
+                  borderRadius: 16,
                   marginVertical: 4,
                   paddingVertical: 0,
-                  marginBottom: 4,
+                  marginBottom: 8,
                   backgroundColor:
                     currentRoute === item.match ? activeBgColor : "transparent",
                 }}
@@ -186,7 +186,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
                       : inactiveTextColor,
                 }}
                 style={{
-                  borderRadius: 4,
+                  borderRadius: 16,
                   marginVertical: 4,
                   paddingVertical: 0,
                   marginBottom: 4,

@@ -6,29 +6,26 @@ import Toast from "react-native-toast-message";
 import noUser from "../../../assets/images/logo.png";
 import { savePetService } from "../services/pet-service";
 import { pickImage } from "@/libs/picker";
-import type { Picker } from "@react-native-picker/picker";
 import { getGenderService } from "../services/gender-service";
 import { getTypePetService } from "../services/type-pet-service";
+import { messageError } from "../consts/message-pet";
 const noUserImage = Image.resolveAssetSource(noUser).uri;
 
 const usePetForm = () => {
   const [logoImage, setLogoImage] = useState(noUserImage);
-  const [logoBlob, setLogoBlob] = useState<PickImageModelI | null>(null);
-  const [selectedGender, setSelectedGender] = useState(null);
-  const [selectedType, setSelectedType] = useState(null);
-
+  const [logoFile, setLogoFile] = useState<PickImageModelI | null>(null);
   const [genders, setGenders] = useState<GenderModelI[]>([]);
   const [types, setTypes] = useState<TypePetModelI[]>([]);
 
-  const [pet, setPet] = useState({
-    name: "",
-    description: "",
-    location: "",
+  const [pet, setPet] = useState<Omit<PetModelI, "picture">>({
+    name: "Pancho",
+    description: "gato amigable, jugueton y pequeño, perezoso y simpático",
+    location: "Girón",
     typeId: "",
     genderId: "",
-    age: "",
-    breed: "",
-    userId: "",
+    age: "4 años",
+    breed: "Criollo",
+    userId: "914be76e-0dc8-491d-81d7-6224384ff948",
   });
 
   useEffect(() => {
@@ -57,26 +54,28 @@ const usePetForm = () => {
   const handleChange = (name: UserKey, value: string) => {
     setPet({
       ...pet,
-      [name]: value,
+      [name]: String(value),
     });
   };
 
   const imagePet = async () => {
     const pick = await pickImage();
+    console.log(pick);
 
     if (pick) {
       setLogoImage(pick.logoImage);
-      setLogoBlob(pick.file);
+      setLogoFile(pick.file);
     }
   };
 
   const handleSubmit = () => {
     const values = Object.values(pet);
+
     if (values.some((value) => value.trim() === "")) {
       Toast.show({
         type: "error",
         text1: "Error de validación",
-        text2: "Todos los campos son obligatorios",
+        text2: messageError.todos.text,
       });
       return;
     }
@@ -86,7 +85,7 @@ const usePetForm = () => {
       Toast.show({
         type: "error",
         text1: "Error de validación",
-        text2: "El nombre debe tener entre 6 y 50 caracteres",
+        text2: messageError.name.text,
       });
       return;
     }
@@ -96,7 +95,7 @@ const usePetForm = () => {
       Toast.show({
         type: "error",
         text1: "Error de validación",
-        text2: "LA descripción debe tener entre 30 y 500 caracteres",
+        text2: messageError.description.text,
       });
       return;
     }
@@ -106,7 +105,7 @@ const usePetForm = () => {
       Toast.show({
         type: "error",
         text1: "Error de validación",
-        text2: "La ubicación debe tener entre 3 y 50 caracteres",
+        text2: messageError.location.text,
       });
       return;
     }
@@ -115,7 +114,7 @@ const usePetForm = () => {
       Toast.show({
         type: "error",
         text1: "Error de validación",
-        text2: "Seleccione el tipo de mascota",
+        text2: messageError.type.text,
       });
       return;
     }
@@ -124,16 +123,16 @@ const usePetForm = () => {
       Toast.show({
         type: "error",
         text1: "Error de validación",
-        text2: "Seleccione el género de la mascota",
+        text2: messageError.gender.text,
       });
       return;
     }
 
-    if (isNaN(Number(pet.age))) {
+    if (pet.age === "" || pet.age === "0") {
       Toast.show({
         type: "error",
         text1: "Error de validación",
-        text2: "Digite un número válido",
+        text2: messageError.age.text,
       });
       return;
     }
@@ -143,41 +142,69 @@ const usePetForm = () => {
       Toast.show({
         type: "error",
         text1: "Error de validación",
-        text2: "La raza debe tener entre 6 y 50 caracteres",
+        text2: messageError.breed.text,
       });
       return;
     }
 
-    if (!logoBlob) {
+    if (!logoFile) {
       Toast.show({
         type: "error",
         text1: "Error de validación",
-        text2: "La foto es obligatoria",
+        text2: messageError.picture.text,
       });
       return;
     }
 
     const dataRegister: PetModelI = {
       ...pet,
-      picture: logoBlob,
+      picture: logoFile,
     };
 
+    console.log(dataRegister);
+
     mutationPetCreate.mutate(dataRegister, {
-      onError: () => {
+      onError: (error) => {
+        console.log("error", error);
         Toast.show({
           type: "error",
-          text1: "Error al guardar la mascota",
-          text2: "Error al guardar la mascota intentelo nuevamente",
+          text1: messageError.onError.text,
+          text2: messageError.onError.text2,
         });
       },
       onSuccess: () => {
         Toast.show({
           type: "success",
-          text1: "Mascota guardada",
-          text2: "Mascota guardada correctamente",
+          text1: messageError.onSuccess.text,
+          text2: messageError.onSuccess.text2,
         });
       },
     });
+  };
+
+  const resetValues = () => {
+    // setPet({
+    //   name: "",
+    //   description: "",
+    //   location: "",
+    //   typeId: "",
+    //   genderId: "",
+    //   age: "",
+    //   breed: "",
+    //   userId: "914be76e-0dc8-491d-81d7-6224384ff948",
+    // });
+    setPet({
+      name: "Pancho",
+      description: "gato amigable, jugueton y pequeño, perezoso y simpático",
+      location: "Girón",
+      typeId: "",
+      genderId: "",
+      age: "4 años",
+      breed: "Criollo",
+      userId: "914be76e-0dc8-491d-81d7-6224384ff948",
+    });
+    setLogoImage(noUserImage);
+    setLogoFile(null);
   };
 
   return {
@@ -191,10 +218,7 @@ const usePetForm = () => {
     isSuccess: mutationPetCreate.isSuccess,
     genders,
     types,
-    selectedGender,
-    setSelectedGender,
-    selectedType,
-    setSelectedType,
+    resetValues,
   };
 };
 

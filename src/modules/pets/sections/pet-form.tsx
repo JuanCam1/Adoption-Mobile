@@ -23,10 +23,6 @@ const PetForm = () => {
     isPending,
     genders,
     types,
-    selectedGender,
-    setSelectedGender,
-    selectedType,
-    setSelectedType,
   } = usePetForm();
 
   return (
@@ -49,7 +45,7 @@ const PetForm = () => {
         </View>
       </View>
 
-      <View className="w-full flex flex-col gap-6">
+      <View className="w-full flex flex-col gap-6 mt-6 ">
         <View className="flex flex-col gap-2">
           <Text className="text-zinc-800 dark:text-zinc-200">Nombre</Text>
           <View className="h-12 border border-zinc-600 rounded-md ">
@@ -78,8 +74,10 @@ const PetForm = () => {
           <View className="h-12 border border-zinc-600 rounded-md text-md flex justify-center  border-none bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 ">
             <Picker
               mode="dialog"
-              selectedValue={selectedGender}
-              onValueChange={(itemValue) => setSelectedGender(itemValue)}
+              selectedValue={pet.genderId}
+              onValueChange={(itemValue) => {
+                handleChange("genderId", itemValue);
+              }}
             >
               <Picker.Item label="Seleccionar género" value="0" />
               {genders.map((gender) => (
@@ -99,8 +97,10 @@ const PetForm = () => {
           <View className="h-12 border border-zinc-600 rounded-md text-md flex justify-center  border-none bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 ">
             <Picker
               mode="dialog"
-              selectedValue={selectedType}
-              onValueChange={(itemValue) => setSelectedType(itemValue)}
+              selectedValue={pet.typeId}
+              onValueChange={(itemValue) => {
+                handleChange("typeId", itemValue);
+              }}
             >
               <Picker.Item label="Seleccionar el tipo" value="0" />
               {types.map((type) => (

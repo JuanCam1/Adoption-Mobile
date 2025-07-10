@@ -1,5 +1,6 @@
 import TextPoppins from "@/components/text-poppins";
 import TextRoboto from "@/components/text-roboto";
+import useKeyboardVisible from "@/hooks/use-keyboard";
 import PetForm from "@/modules/pets/sections/pet-form";
 import {
   View,
@@ -9,14 +10,17 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CreatePet = () => {
+  const isKeyboardVisible = useKeyboardVisible();
+  const { bottom } = useSafeAreaInsets();
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
         className="dark:bg-zinc-900"
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
+        style={{ flex: 1, paddingBottom: isKeyboardVisible ? bottom + 20 : 0 }}
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
       >
         <ScrollView

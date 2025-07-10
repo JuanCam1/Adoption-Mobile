@@ -9,7 +9,7 @@ const noUserImage = Image.resolveAssetSource(noUser).uri;
 
 const useRegister = () => {
   const [logoImage, setLogoImage] = useState(noUserImage);
-  const [logoBlob, setLogoBlob] = useState<PickImageModelI | null>(null);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
   const [isActive, setIsActive] = useState(false);
   const [dataUser, setDataUser] = useState<UserModelI | null>(null);
 
@@ -43,7 +43,7 @@ const useRegister = () => {
 
     if (pick) {
       setLogoImage(pick.logoImage);
-      setLogoBlob(pick.file);
+      setLogoFile(pick.file);
     }
   };
 
@@ -130,7 +130,7 @@ const useRegister = () => {
       return;
     }
 
-    if (!logoBlob) {
+    if (!logoFile) {
       Toast.show({
         type: "error",
         text1: "Error de validación",
@@ -141,7 +141,7 @@ const useRegister = () => {
 
     const dataRegister: RegisterModelI = {
       ...user,
-      picture: logoBlob,
+      picture: logoFile,
     };
 
     mutationRegister.mutate(dataRegister, {

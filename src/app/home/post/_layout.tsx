@@ -14,7 +14,6 @@ export default function PostLayout() {
       }}
     >
       <Stack.Screen name="index" />
-      <Stack.Screen name="[id]" />
     </Stack>
   );
 }
