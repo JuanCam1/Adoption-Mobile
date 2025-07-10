@@ -9,7 +9,7 @@ const noUserImage = Image.resolveAssetSource(noUser).uri;
 
 const useRegister = () => {
   const [logoImage, setLogoImage] = useState(noUserImage);
-  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [logoFile, setLogoFile] = useState<PickImageModelI | null>(null);
   const [isActive, setIsActive] = useState(false);
   const [dataUser, setDataUser] = useState<UserModelI | null>(null);
 
@@ -49,6 +49,7 @@ const useRegister = () => {
 
   const handleSubmit = () => {
     const values = Object.values(user);
+
     if (values.some((value) => value.trim() === "")) {
       Toast.show({
         type: "error",
@@ -143,6 +144,8 @@ const useRegister = () => {
       ...user,
       picture: logoFile,
     };
+
+    console.log(" register", dataRegister);
 
     mutationRegister.mutate(dataRegister, {
       onError: () => {

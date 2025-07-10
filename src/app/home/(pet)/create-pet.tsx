@@ -1,5 +1,4 @@
 import TextPoppins from "@/components/text-poppins";
-import TextRoboto from "@/components/text-roboto";
 import useKeyboardVisible from "@/hooks/use-keyboard";
 import PetForm from "@/modules/pets/sections/pet-form";
 import {
@@ -25,14 +24,14 @@ const CreatePet = () => {
       >
         <ScrollView
           keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
           style={{ flex: 1 }}
           contentContainerStyle={{
             flexGrow: 1,
           }}
-          showsVerticalScrollIndicator={false}
-          scrollEventThrottle={16}
         >
-          <View className="p-6">
+          <View className="p-6 flex-1">
             <TextPoppins
               text="Regístra la mascota"
               className="text-indigo-600 dark:text-indigo-400 text-5xl text-center font-Roboto_ExtraBold mb-6"

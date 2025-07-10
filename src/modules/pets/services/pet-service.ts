@@ -1,7 +1,7 @@
 import { instance } from "@/libs/axios";
 
 
-export const savePetService = (pet: PetModelI) => {
+export const savePetService = async (pet: PetModelI) => {
   const formData = new FormData();
 
   Object.entries(pet).forEach(([key, value]) => {
@@ -14,13 +14,9 @@ export const savePetService = (pet: PetModelI) => {
     }
   });
 
-  return instance.post<SendResponseModelI<PetRequestModelI>>(
-    "/pet",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+  return instance.post<SendResponseModelI<PetRequestModelI>>("/pet", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
     },
-  );
-}
+  });
+};

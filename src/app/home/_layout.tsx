@@ -200,7 +200,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         <View className="border-t border-gray-300 dark:border-zinc-600">
           <DrawerItem
             label="Cerrar sesión"
-            onPress={() => console.log("Cerrar sesión")}
+            onPress={() => router.replace("/login")}
             icon={({ size }) => (
               <LogOut size={size} color={inactiveTextColor} />
             )}

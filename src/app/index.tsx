@@ -1,6 +1,5 @@
 import { Image, TouchableOpacity, View } from "react-native";
 import { useRouter } from "expo-router";
-import TextPoppins from "@/components/text-poppins";
 import TextRoboto from "@/components/text-roboto";
 import logo from "../assets/images/logo2.png";
 const LOGO = Image.resolveAssetSource(logo).uri;

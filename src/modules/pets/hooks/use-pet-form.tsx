@@ -25,7 +25,7 @@ const usePetForm = () => {
     genderId: "",
     age: "4 años",
     breed: "Criollo",
-    userId: "914be76e-0dc8-491d-81d7-6224384ff948",
+    userId: "e5ad63e0-d94d-4c84-8fd2-24e31c29c12a",
   });
 
   useEffect(() => {
@@ -156,16 +156,16 @@ const usePetForm = () => {
       return;
     }
 
-    const dataRegister: PetModelI = {
+    const dataPet: PetModelI = {
       ...pet,
       picture: logoFile,
     };
 
-    console.log(dataRegister);
+    console.log("dataPet", dataPet);
 
-    mutationPetCreate.mutate(dataRegister, {
+    mutationPetCreate.mutate(dataPet, {
       onError: (error) => {
-        console.log("error", error);
+        console.log("error", error.message);
         Toast.show({
           type: "error",
           text1: messageError.onError.text,
@@ -178,31 +178,32 @@ const usePetForm = () => {
           text1: messageError.onSuccess.text,
           text2: messageError.onSuccess.text2,
         });
+        resetValues();
       },
     });
   };
 
   const resetValues = () => {
-    // setPet({
-    //   name: "",
-    //   description: "",
-    //   location: "",
-    //   typeId: "",
-    //   genderId: "",
-    //   age: "",
-    //   breed: "",
-    //   userId: "914be76e-0dc8-491d-81d7-6224384ff948",
-    // });
     setPet({
-      name: "Pancho",
-      description: "gato amigable, jugueton y pequeño, perezoso y simpático",
-      location: "Girón",
-      typeId: "",
-      genderId: "",
-      age: "4 años",
-      breed: "Criollo",
+      name: "",
+      description: "",
+      location: "",
+      typeId: null,
+      genderId: null,
+      age: "",
+      breed: "",
       userId: "914be76e-0dc8-491d-81d7-6224384ff948",
     });
+    // setPet({
+    //   name: "Pancho",
+    //   description: "gato amigable, jugueton y pequeño, perezoso y simpático",
+    //   location: "Girón",
+    //   typeId: "",
+    //   genderId: "",
+    //   age: "4 años",
+    //   breed: "Criollo",
+    //   userId: "914be76e-0dc8-491d-81d7-6224384ff948",
+    // });
     setLogoImage(noUserImage);
     setLogoFile(null);
   };
