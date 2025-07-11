@@ -1,10 +1,14 @@
+import type { FC } from "react";
 import { View } from "react-native";
 import { WebView } from "react-native-webview";
 
-const PostMap = () => {
-  const location = "Girón";
-  const latitude = "7.0682";
-  const longitude = "-73.16981";
+interface Props {
+  latitude: number;
+  longitude: number;
+  location: string;
+}
+
+const PostMap: FC<Props> = ({ latitude, longitude, location }) => {
   const html = `
     <!DOCTYPE html>
     <html>
@@ -18,6 +22,7 @@ const PostMap = () => {
         <style>
           html, body, #map {
             height: 100%;
+            width: 100%;
             margin: 0;
             padding: 0;
           }
@@ -27,28 +32,36 @@ const PostMap = () => {
         <div id="map"></div>
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
         <script>
-          var map = L.map('map').setView([${latitude}, ${longitude}], 13); 
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-          }).addTo(map);
-          L.marker([6.25184, -75.56359]).addTo(map)
-            .bindPopup(${location})
-            .openPopup();
+          document.addEventListener("DOMContentLoaded", function () {
+            var map = L.map('map').setView([${latitude}, ${longitude}], 15);   
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            L.marker([${latitude}, ${longitude}])
+              .addTo(map)
+              .bindPopup('${location.replace(/'/g, "\\'")}')
+              .openPopup();
+          });
         </script>
       </body>
     </html>
   `;
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 rounded-xl overflow-hidden">
       <WebView
         originWhitelist={["*"]}
         source={{ html }}
         style={{ flex: 1 }}
-        javaScriptEnabled={true}
-        domStorageEnabled={true}
+        javaScriptEnabled
+        domStorageEnabled
+        automaticallyAdjustContentInsets={false}
+        scrollEnabled={false}
       />
     </View>
   );
 };
+
 export default PostMap;

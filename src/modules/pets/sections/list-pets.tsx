@@ -28,7 +28,7 @@ const ListPets: FC<Props> = ({ handleOpenBottomSheet }) => {
     }
   };
   return (
-    <View className="flex flex-1 py-2">
+    <View className="flex flex-1">
       {status === "pending" ? (
         <PetListSkeleton />
       ) : status === "error" ? (

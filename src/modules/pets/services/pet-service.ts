@@ -14,7 +14,7 @@ export const savePetService = async (pet: PetModelI) => {
     }
   });
 
-  return instance.post<SendResponseModelI<PetRequestModelI>>("/pet", formData, {
+  return await instance.post<SendResponseModelI<PetRequestModelI>>("/pet", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -23,5 +23,9 @@ export const savePetService = async (pet: PetModelI) => {
 
 export const listPetsByIdService = async ({ pageParam = 1 }) => {
   const id = "e5ad63e0-d94d-4c84-8fd2-24e31c29c12a";
-  return instance.get<SendResponseModelI<ListPetByUserModelI>>(`/pet/${id}?page=${pageParam}`);
+  return await instance.get<SendResponseModelI<ListPetByUserModelI>>(`/pet/${id}?page=${pageParam}`);
+};
+
+export const getByIdPetService = async (id: string) => {
+  return await instance.get<SendResponseModelI<PetListModelI>>(`/pet/by-id/${id}`);
 };
