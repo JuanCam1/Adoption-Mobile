@@ -1,7 +1,7 @@
 import { instance } from "@/libs/axios";
+type request = "create" | "update";
 
-
-export const savePetService = async (pet: PetModelI) => {
+export const savePetService = async (pet: PetModelI, type: request) => {
   const formData = new FormData();
 
   Object.entries(pet).forEach(([key, value]) => {
@@ -14,11 +14,21 @@ export const savePetService = async (pet: PetModelI) => {
     }
   });
 
-  return await instance.post<SendResponseModelI<PetRequestModelI>>("/pet", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  if (type === "create") {
+    return await instance.post<SendResponseModelI<PetModelI>>("/pet", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  } else {
+    return await instance.put<SendResponseModelI<PetModelI>>("/pet", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+
+
 };
 
 export const listPetsByIdService = async ({ pageParam = 1 }) => {
@@ -29,3 +39,7 @@ export const listPetsByIdService = async ({ pageParam = 1 }) => {
 export const getByIdPetService = async (id: string) => {
   return await instance.get<SendResponseModelI<PetListModelI>>(`/pet/by-id/${id}`);
 };
+
+export const stateChangePetService = async (id: string) => {
+  return await instance.post<SendResponseModelI<PetListModelI>>(`/pet/state-change/${id}`);
+}

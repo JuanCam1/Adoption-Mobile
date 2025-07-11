@@ -1,31 +1,31 @@
-import { useEffect, useRef, useState } from "react";
-import { Image } from "react-native";
 import { useMutation } from "@tanstack/react-query";
-import Toast from "react-native-toast-message";
-
-import noUser from "../../../assets/images/logo.png";
 import { savePetService } from "../services/pet-service";
-import { pickImage } from "@/libs/picker";
+import { useEffect, useState } from "react";
 import { getGenderService } from "../services/gender-service";
 import { getTypePetService } from "../services/type-pet-service";
+import { pickImage } from "@/libs/picker";
+import Toast from "react-native-toast-message";
 import { messageError } from "../consts/message-pet";
-const noUserImage = Image.resolveAssetSource(noUser).uri;
 
-const usePetForm = () => {
-  const [logoImage, setLogoImage] = useState(noUserImage);
+const useUpdatePet = (pet: PetListModelI) => {
   const [logoFile, setLogoFile] = useState<PickImageModelI | null>(null);
   const [genders, setGenders] = useState<GenderModelI[]>([]);
   const [types, setTypes] = useState<TypePetModelI[]>([]);
-
-  const [pet, setPet] = useState<Omit<PetModelI, "picture">>({
-    name: "Pancho",
-    description: "gato amigable, jugueton y pequeño, perezoso y simpático",
-    location: "Girón",
-    typeId: "",
-    genderId: "",
-    age: "4 años",
-    breed: "Criollo",
+  const [petUpdate, setPetUpdate] = useState({
+    id: pet.id,
+    name: pet.name,
+    genderId: String(pet.genderId),
+    description: pet.description,
+    typeId: String(pet.typeId),
+    age: pet.age,
+    breed: pet.breed,
+    location: pet.location,
+    picture: `${process.env.EXPO_PUBLIC_STATIC_DEV}/pet/${pet.pathPicture}`,
     userId: "e5ad63e0-d94d-4c84-8fd2-24e31c29c12a",
+  });
+
+  const mutatioUpdatePet = useMutation({
+    mutationFn: (data: PetModelI) => savePetService(data, "update"),
   });
 
   useEffect(() => {
@@ -46,14 +46,10 @@ const usePetForm = () => {
     fetchDataInitial();
   }, []);
 
-  const mutationPetCreate = useMutation({
-    mutationFn: (data: PetModelI) => savePetService(data, "create"),
-  });
-
-  type UserKey = keyof typeof pet;
-  const handleChange = (name: UserKey, value: string) => {
-    setPet({
-      ...pet,
+  type petKey = keyof typeof petUpdate;
+  const handleChange = (name: petKey, value: string) => {
+    setPetUpdate({
+      ...petUpdate,
       [name]: String(value),
     });
   };
@@ -62,13 +58,16 @@ const usePetForm = () => {
     const pick = await pickImage();
 
     if (pick) {
-      setLogoImage(pick.logoImage);
+      setPetUpdate({
+        ...petUpdate,
+        picture: pick.logoImage,
+      });
       setLogoFile(pick.file);
     }
   };
 
   const handleSubmit = () => {
-    const values = Object.values(pet);
+    const values = Object.values(petUpdate);
 
     if (values.some((value) => value.trim() === "")) {
       Toast.show({
@@ -79,7 +78,7 @@ const usePetForm = () => {
       return;
     }
 
-    const nameLength = pet.name.length;
+    const nameLength = petUpdate.name.length;
     if (nameLength < 6 && nameLength > 50) {
       Toast.show({
         type: "error",
@@ -89,7 +88,7 @@ const usePetForm = () => {
       return;
     }
 
-    const descLength = pet.description.length;
+    const descLength = petUpdate.description.length;
     if (descLength < 30 && descLength > 500) {
       Toast.show({
         type: "error",
@@ -99,7 +98,7 @@ const usePetForm = () => {
       return;
     }
 
-    const locationLength = pet.location.length;
+    const locationLength = petUpdate.location.length;
     if (locationLength < 3 && locationLength > 50) {
       Toast.show({
         type: "error",
@@ -109,7 +108,7 @@ const usePetForm = () => {
       return;
     }
 
-    if (pet.typeId === "" || pet.typeId === "0") {
+    if (petUpdate.typeId === "" || petUpdate.typeId === "0") {
       Toast.show({
         type: "error",
         text1: "Error de validación",
@@ -118,7 +117,7 @@ const usePetForm = () => {
       return;
     }
 
-    if (pet.genderId === "" || pet.genderId === "0") {
+    if (petUpdate.genderId === "" || petUpdate.genderId === "0") {
       Toast.show({
         type: "error",
         text1: "Error de validación",
@@ -127,7 +126,7 @@ const usePetForm = () => {
       return;
     }
 
-    if (pet.age === "" || pet.age === "0") {
+    if (petUpdate.age === "" || petUpdate.age === "0") {
       Toast.show({
         type: "error",
         text1: "Error de validación",
@@ -136,7 +135,7 @@ const usePetForm = () => {
       return;
     }
 
-    const breedLength = pet.breed.length;
+    const breedLength = petUpdate.breed.length;
     if (breedLength < 6 && breedLength > 50) {
       Toast.show({
         type: "error",
@@ -156,70 +155,41 @@ const usePetForm = () => {
     }
 
     const dataPet: PetModelI = {
-      ...pet,
+      ...petUpdate,
       picture: logoFile,
     };
 
     console.log("dataPet", dataPet);
 
-    mutationPetCreate.mutate(dataPet, {
+    mutatioUpdatePet.mutate(dataPet, {
       onError: (error) => {
         console.log("error", error.message);
         Toast.show({
           type: "error",
-          text1: messageError.onError.text,
-          text2: messageError.onError.text2,
+          text1: "Error al actualizar la mascota",
+          text2: "Error al actualizar la mascota intentelo nuevamente",
         });
       },
       onSuccess: () => {
         Toast.show({
           type: "success",
-          text1: messageError.onSuccess.text,
-          text2: messageError.onSuccess.text2,
+          text1: "Mascota actualizada",
+          text2: "Mascota actualizada correctamente",
         });
-        resetValues();
       },
     });
   };
-
-  const resetValues = () => {
-    setPet({
-      name: "",
-      description: "",
-      location: "",
-      typeId: null,
-      genderId: null,
-      age: "",
-      breed: "",
-      userId: "914be76e-0dc8-491d-81d7-6224384ff948",
-    });
-    // setPet({
-    //   name: "Pancho",
-    //   description: "gato amigable, jugueton y pequeño, perezoso y simpático",
-    //   location: "Girón",
-    //   typeId: "",
-    //   genderId: "",
-    //   age: "4 años",
-    //   breed: "Criollo",
-    //   userId: "914be76e-0dc8-491d-81d7-6224384ff948",
-    // });
-    setLogoImage(noUserImage);
-    setLogoFile(null);
-  };
-
   return {
-    logoImage,
-    pet,
+    petUpdate,
     handleChange,
     imagePet,
     handleSubmit,
-    isPending: mutationPetCreate.isPending,
-    isError: mutationPetCreate.isError,
-    isSuccess: mutationPetCreate.isSuccess,
+    isPending: mutatioUpdatePet.isPending,
+    isError: mutatioUpdatePet.isError,
+    isSuccess: mutatioUpdatePet.isSuccess,
     genders,
     types,
-    resetValues,
   };
 };
 
-export default usePetForm;
+export default useUpdatePet;
