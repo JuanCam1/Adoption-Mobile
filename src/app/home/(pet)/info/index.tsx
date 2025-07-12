@@ -1,5 +1,10 @@
 import { useCallback } from "react";
-import { View, TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+  Switch,
+} from "react-native";
 import { useFocusEffect } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { CirclePlus, Eye, SquarePen, Trash2 } from "lucide-react-native";
@@ -11,8 +16,11 @@ import PetCreatePostModal from "@/modules/pets/components/pet-create-post-modal"
 import PetEditModal from "@/modules/pets/components/pet-edit-modal";
 import useListPets from "@/modules/pets/hooks/use-list-pets";
 import ListPets from "@/modules/pets/sections/list-pets";
+import PetDeleteModal from "@/modules/pets/components/pet-delete-modal";
+import useTheme from "@/hooks/use-theme";
 
 const PetScreen = () => {
+  const { theme } = useTheme();
   const {
     bottomSheetRef,
     router,
@@ -24,9 +32,10 @@ const PetScreen = () => {
     isEditModalVisible,
     handleCreateModal,
     handleEditModal,
-    handleCloseCreateModal,
-    handleCloseEditModal,
+    handleDeleteModal,
+    isDeleteModalVisible,
     setSelectedPet,
+    handleDeletePet,
   } = useListPets();
 
   useFocusEffect(
@@ -51,7 +60,7 @@ const PetScreen = () => {
           handleSheetChanges={handleSheetChanges}
         >
           {selectedPet ? (
-            <>
+            <View className="dark:bg-zinc-900 w-full p-6 rounded-2xl ">
               <TextRoboto
                 className="text-3xl font-bold mb-4 text-indigo-400 text-center w-full"
                 text={`Mascota: ${selectedPet.name}`}
@@ -77,7 +86,7 @@ const PetScreen = () => {
                   <TextRoboto text="Editar" className="text-white text-xl" />
                   <TouchableOpacity
                     className="bg-green-500 p-3  rounded-2xl"
-                    onPress={handleEditModal}
+                    onPress={() => handleEditModal(true)}
                   >
                     <SquarePen size={20} color="white" />
                   </TouchableOpacity>
@@ -90,22 +99,41 @@ const PetScreen = () => {
                   />
                   <TouchableOpacity
                     className="bg-blue-400 p-3 rounded-2xl"
-                    onPress={handleCreateModal}
+                    onPress={() => handleCreateModal(true)}
                   >
                     <CirclePlus size={20} color="white" />
                   </TouchableOpacity>
                 </View>
 
                 <View className="flex flex-row justify-between w-full items-center">
+                  <TextRoboto text="Estado" className="text-white text-xl" />
+
+                  <View className="h-12 w-12 flex justify-center items-center rounded-2xl bg-indigo-400">
+                    <Switch
+                      trackColor={{ false: "#767577", true: "#4f46e5" }}
+                      thumbColor="#f1f5f9"
+                      ios_backgroundColor="#3e3e3e"
+                      value={false}
+                    />
+                  </View>
+                </View>
+
+                <View className="flex flex-row justify-between w-full items-center">
                   <TextRoboto text="Eliminar" className="text-white text-xl" />
-                  <TouchableOpacity className="bg-red-400 p-3 rounded-2xl">
+                  <TouchableOpacity
+                    className="bg-red-400 p-3 rounded-2xl"
+                    onPress={() => handleDeleteModal(true)}
+                  >
                     <Trash2 size={20} color="white" />
                   </TouchableOpacity>
                 </View>
               </View>
-            </>
+            </View>
           ) : (
-            <ActivityIndicator size="large" color="white" />
+            <ActivityIndicator
+              size="small"
+              color={theme === "dark" ? "#818cf8" : "#4f46e5"}
+            />
           )}
         </BottomSheetComponent>
       )}
@@ -113,7 +141,7 @@ const PetScreen = () => {
       {isCreateModalVisible && (
         <PetCreatePostModal
           visible={isCreateModalVisible}
-          onClose={handleCloseCreateModal}
+          onClose={handleCreateModal}
         />
       )}
 
@@ -121,7 +149,16 @@ const PetScreen = () => {
         <PetEditModal
           pet={selectedPet}
           visible={isEditModalVisible}
-          onClose={handleCloseEditModal}
+          onClose={handleEditModal}
+        />
+      )}
+
+      {isDeleteModalVisible && selectedPet && (
+        <PetDeleteModal
+          visible={isDeleteModalVisible}
+          onClose={handleDeleteModal}
+          handleDeletePet={handleDeletePet}
+          id={selectedPet.id}
         />
       )}
     </GestureHandlerRootView>

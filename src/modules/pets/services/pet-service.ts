@@ -41,5 +41,9 @@ export const getByIdPetService = async (id: string) => {
 };
 
 export const stateChangePetService = async (id: string) => {
-  return await instance.post<SendResponseModelI<PetListModelI>>(`/pet/state-change/${id}`);
+  return await instance.post<SendResponseModelI<PetListModelI>>(`/pet/state/${id}`);
+}
+
+export const deletePetService = async (id: string) => {
+  return await instance.delete<SendResponseModelI<PetListModelI>>(`/pet/${id}`);
 }

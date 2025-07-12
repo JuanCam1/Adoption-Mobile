@@ -9,6 +9,7 @@ interface Props {
 }
 const PetCardList: FC<Props> = ({ handleOpenBottomSheet, pet }) => {
   const urlPicure = `${process.env.EXPO_PUBLIC_STATIC_DEV}/pet/${pet.pathPicture}`;
+  console.log("urlPicure", urlPicure);
   return (
     <Pressable
       onPress={() => handleOpenBottomSheet(pet)}

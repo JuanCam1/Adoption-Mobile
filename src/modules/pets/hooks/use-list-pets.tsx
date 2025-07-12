@@ -1,6 +1,6 @@
-import type BottomSheet from "@gorhom/bottom-sheet";
-import { useRouter } from "expo-router";
 import { useCallback, useRef, useState } from "react";
+import { useRouter } from "expo-router";
+import type BottomSheet from "@gorhom/bottom-sheet";
 
 const useListPets = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -22,21 +22,22 @@ const useListPets = () => {
 
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
-  const handleCreateModal = () => {
-    setIsCreateModalVisible(true);
+  const handleCreateModal = (value: boolean) => {
+    setIsCreateModalVisible(value);
   };
 
-  const handleEditModal = () => {
-    setIsEditModalVisible(true);
+  const handleEditModal = (value: boolean) => {
+    setIsEditModalVisible(value);
   };
 
-  const handleCloseCreateModal = () => {
-    setIsCreateModalVisible(false);
+  const handleDeleteModal = (value: boolean) => {
+    setIsDeleteModalVisible(value);
   };
 
-  const handleCloseEditModal = () => {
-    setIsEditModalVisible(false);
+  const handleDeletePet = (id: string) => {
+    console.log("id", id);
   };
 
   return {
@@ -48,11 +49,12 @@ const useListPets = () => {
     handleSheetChanges,
     isCreateModalVisible,
     isEditModalVisible,
+    isDeleteModalVisible,
+    handleDeleteModal,
     handleCreateModal,
     handleEditModal,
-    handleCloseCreateModal,
-    handleCloseEditModal,
     setSelectedPet,
+    handleDeletePet,
   };
 };
 

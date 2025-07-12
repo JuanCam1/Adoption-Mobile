@@ -15,7 +15,7 @@ import TextRoboto from "@/components/text-roboto";
 import PostMap from "@/modules/posts/components/post-map";
 import useTheme from "@/hooks/use-theme";
 import useByIdFetchPet from "@/modules/pets/hooks/use-byId-fetch-pet";
-import ErrorState from "@/components/error-state";
+import ErrorState from "@/components/message-state";
 
 const PetId = () => {
   const { id } = useLocalSearchParams<{ id: string }>();

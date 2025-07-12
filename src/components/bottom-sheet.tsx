@@ -24,7 +24,7 @@ const BottomSheetComponent: FC<Props> = ({
         backgroundColor: theme === "dark" ? "#27272a" : "#fafafa",
       }}
     >
-      <BottomSheetView className="flex flex-1 py-4 px-12 items-start">
+      <BottomSheetView className="flex flex-1 py-4 px-6 items-start">
         {children}
       </BottomSheetView>
     </BottomSheet>

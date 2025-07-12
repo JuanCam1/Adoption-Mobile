@@ -4,14 +4,14 @@ import ModalLayout from "@/components/modal-layout";
 
 interface Props {
   visible: boolean;
-  onClose: () => void;
+  onClose: (value: boolean) => void;
   pet: PetListModelI;
 }
 const PetEditModal: FC<Props> = ({ visible, onClose, pet }) => {
   return (
     <ModalLayout
       visible={visible}
-      onClose={onClose}
+      onClose={() => onClose(false)}
       animationType="slide"
       title="Crear Publicación"
       transparent
