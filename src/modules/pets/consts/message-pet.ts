@@ -34,4 +34,4 @@ export const messageError = {
     text: "Mascota guardada",
     text2: "Mascota guardada correctamente",
   },
-}
+};

@@ -13,7 +13,7 @@ const PetCardList: FC<Props> = ({ handleOpenBottomSheet, pet }) => {
   return (
     <Pressable
       onPress={() => handleOpenBottomSheet(pet)}
-      className="w-[48%] dark:bg-zinc-800 bg-white rounded-2xl p-4 shadow-md dark:shadow-zinc-900"
+      className="w-[48%] dark:bg-zinc-800 bg-white rounded-2xl p-4 "
     >
       <Image
         source={{ uri: urlPicure }}

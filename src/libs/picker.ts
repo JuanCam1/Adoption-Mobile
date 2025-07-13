@@ -10,7 +10,6 @@ export const pickImage = async () => {
   });
 
   if (!result.canceled) {
-
     const logoImage = result.assets[0];
 
     const blob = await fetchBlob(logoImage.uri);

@@ -8,7 +8,6 @@ import TextPoppins from "@/components/text-poppins";
 import TextRoboto from "@/components/text-roboto";
 import BottomSheetComponent from "@/components/bottom-sheet";
 import PetCreatePostModal from "@/modules/pets/components/pet-create-post-modal";
-import PetEditModal from "@/modules/pets/components/pet-edit-modal";
 import useListPets from "@/modules/pets/hooks/use-list-pets";
 import ListPets from "@/modules/pets/sections/list-pets";
 import PetDeleteModal from "@/modules/pets/components/pet-delete-modal";
@@ -26,9 +25,7 @@ const PetScreen = () => {
     handleOpenBottomSheet,
     handleSheetChanges,
     isCreateModalVisible,
-    isEditModalVisible,
     handleCreateModal,
-    handleEditModal,
     setSelectedPet,
   } = useListPets();
 
@@ -53,97 +50,81 @@ const PetScreen = () => {
 
       <ListPets handleOpenBottomSheet={handleOpenBottomSheet} />
 
-      {selectedPet && (
-        <BottomSheetComponent
-          ref={bottomSheetRef}
-          handleSheetChanges={handleSheetChanges}
-        >
-          {selectedPet ? (
-            <View className="dark:bg-zinc-900 w-full p-6 rounded-2xl ">
-              <TextRoboto
-                className="text-3xl font-bold mb-4 text-indigo-400 text-center w-full"
-                text={`Mascota: ${selectedPet.name}`}
-              />
+      <BottomSheetComponent
+        ref={bottomSheetRef}
+        handleSheetChanges={handleSheetChanges}
+      >
+        {selectedPet ? (
+          <View className="dark:bg-zinc-900 w-full p-6 rounded-2xl ">
+            <TextRoboto
+              className="text-3xl font-bold mb-4 text-indigo-400 text-center w-full"
+              text={`Mascota: ${selectedPet.name}`}
+            />
 
-              <View className="flex flex-col gap-6">
-                <View className="flex flex-row justify-between w-full items-center">
-                  <TextRoboto
-                    text="Visualizar"
-                    className="text-white text-xl"
-                  />
-                  <TouchableOpacity
-                    className="bg-indigo-400 p-3 rounded-2xl"
-                    onPress={() =>
-                      router.push(`/home/(pet)/info/${String(selectedPet.id)}`)
-                    }
-                  >
-                    <Eye size={20} color="white" />
-                  </TouchableOpacity>
-                </View>
+            <View className="flex flex-col gap-6">
+              <View className="flex flex-row justify-between w-full items-center">
+                <TextRoboto text="Visualizar" className="text-white text-xl" />
+                <TouchableOpacity
+                  className="bg-indigo-400 p-3 rounded-2xl"
+                  onPress={() =>
+                    router.push(`/home/(pet)/info/${String(selectedPet.id)}`)
+                  }
+                >
+                  <Eye size={20} color="white" />
+                </TouchableOpacity>
+              </View>
 
-                <View className="flex flex-row justify-between w-full items-center">
-                  <TextRoboto text="Editar" className="text-white text-xl" />
-                  <TouchableOpacity
-                    className="bg-green-500 p-3  rounded-2xl"
-                    onPress={() => handleEditModal(true)}
-                  >
-                    <SquarePen size={20} color="white" />
-                  </TouchableOpacity>
-                </View>
+              <View className="flex flex-row justify-between w-full items-center">
+                <TextRoboto text="Editar" className="text-white text-xl" />
+                <TouchableOpacity
+                  className="bg-green-500 p-3  rounded-2xl"
+                  onPress={() => router.push("/home/(pet)/info/update")}
+                >
+                  <SquarePen size={20} color="white" />
+                </TouchableOpacity>
+              </View>
 
-                <View className="flex flex-row justify-between w-full items-center">
-                  <TextRoboto
-                    text="Crear Post"
-                    className="text-white text-xl"
-                  />
-                  <TouchableOpacity
-                    className="bg-blue-400 p-3 rounded-2xl"
-                    onPress={() => handleCreateModal(true)}
-                  >
-                    <CirclePlus size={20} color="white" />
-                  </TouchableOpacity>
-                </View>
+              <View className="flex flex-row justify-between w-full items-center">
+                <TextRoboto text="Crear Post" className="text-white text-xl" />
+                <TouchableOpacity
+                  className="bg-blue-400 p-3 rounded-2xl"
+                  onPress={() => handleCreateModal(true)}
+                >
+                  <CirclePlus size={20} color="white" />
+                </TouchableOpacity>
+              </View>
 
-                <View className="flex flex-row justify-between w-full items-center">
-                  <TextRoboto text="Estado" className="text-white text-xl" />
-                  <PetSwicthState
-                    id={selectedPet.id}
-                    stateId={selectedPet.stateId}
-                  />
-                </View>
+              <View className="flex flex-row justify-between w-full items-center">
+                <TextRoboto text="Estado" className="text-white text-xl" />
+                <PetSwicthState
+                  id={selectedPet.id}
+                  stateId={selectedPet.stateId}
+                />
+              </View>
 
-                <View className="flex flex-row justify-between w-full items-center">
-                  <TextRoboto text="Eliminar" className="text-white text-xl" />
-                  <TouchableOpacity
-                    className="bg-red-400 p-3 rounded-2xl"
-                    onPress={() => handleDeleteModal(true)}
-                  >
-                    <Trash2 size={20} color="white" />
-                  </TouchableOpacity>
-                </View>
+              <View className="flex flex-row justify-between w-full items-center">
+                <TextRoboto text="Eliminar" className="text-white text-xl" />
+                <TouchableOpacity
+                  className="bg-red-400 p-3 rounded-2xl"
+                  onPress={() => handleDeleteModal(true)}
+                >
+                  <Trash2 size={20} color="white" />
+                </TouchableOpacity>
               </View>
             </View>
-          ) : (
-            <ActivityIndicator
-              size="small"
-              color={theme === "dark" ? "#818cf8" : "#4f46e5"}
-            />
-          )}
-        </BottomSheetComponent>
-      )}
+          </View>
+        ) : (
+          <ActivityIndicator
+            size="small"
+            color={theme === "dark" ? "#818cf8" : "#4f46e5"}
+          />
+        )}
+      </BottomSheetComponent>
 
       {isCreateModalVisible && (
         <PetCreatePostModal
           visible={isCreateModalVisible}
           onClose={handleCreateModal}
-        />
-      )}
-
-      {isEditModalVisible && selectedPet && (
-        <PetEditModal
-          pet={selectedPet}
-          visible={isEditModalVisible}
-          onClose={handleEditModal}
         />
       )}
 

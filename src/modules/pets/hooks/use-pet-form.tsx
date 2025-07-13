@@ -1,13 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Image } from "react-native";
 import { useMutation } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
 
-import noUser from "../../../assets/images/logo.png";
+import noUser from "@/assets/images/no-user.jpg";
 import { savePetService } from "../services/pet-service";
 import { pickImage } from "@/libs/picker";
-import { getGenderService } from "../services/gender-service";
-import { getTypePetService } from "../services/type-pet-service";
 import { messageError } from "../consts/message-pet";
 import { query } from "@/libs/query";
 import { KeysQuery } from "@/consts/keys-query";
@@ -16,8 +14,6 @@ const noUserImage = Image.resolveAssetSource(noUser).uri;
 const usePetForm = () => {
   const [logoImage, setLogoImage] = useState(noUserImage);
   const [logoFile, setLogoFile] = useState<PickImageModelI | null>(null);
-  const [genders, setGenders] = useState<GenderModelI[]>([]);
-  const [types, setTypes] = useState<TypePetModelI[]>([]);
 
   const [pet, setPet] = useState<Omit<PetModelI, "picture">>({
     name: "",
@@ -29,24 +25,6 @@ const usePetForm = () => {
     breed: "",
     userId: "e5ad63e0-d94d-4c84-8fd2-24e31c29c12a",
   });
-
-  useEffect(() => {
-    const fetchDataInitial = async () => {
-      try {
-        const [genders, types] = await Promise.all([
-          getGenderService(),
-          getTypePetService(),
-        ]);
-
-        setGenders(genders.data.data);
-        setTypes(types.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchDataInitial();
-  }, []);
 
   const mutationPetCreate = useMutation({
     mutationFn: (data: PetModelI) => savePetService(data, "create"),
@@ -221,8 +199,6 @@ const usePetForm = () => {
     isPending: mutationPetCreate.isPending,
     isError: mutationPetCreate.isError,
     isSuccess: mutationPetCreate.isSuccess,
-    genders,
-    types,
     resetValues,
   };
 };

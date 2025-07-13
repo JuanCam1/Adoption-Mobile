@@ -27,13 +27,13 @@ const Page = () => {
         />
         <TextRoboto
           text="Encuentra a tu nuevo mejor amigo. Adopta con un toque. 🐾"
-          className="dark:text-zinc-700 text-center px-6 text-xl font-Roboto_Bold"
+          className="dark:text-indigo-900 text-center px-6 text-xl font-Roboto_Bold"
         />
       </View>
       <View className="flex gap-3 flex-row items-center">
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => handleNavigate("/login")}
+          onPress={() => handleNavigate("/home/(pet)/info")}
         >
           <TextRoboto
             text="Comenzar"
@@ -46,15 +46,6 @@ const Page = () => {
         >
           <TextRoboto
             text="Registrarse"
-            className="text-indigo-600 text-lg font-Roboto_Bold bg-white px-6 py-3 rounded-md"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => handleNavigate("/home/(pet)/create-pet")}
-        >
-          <TextRoboto
-            text="Mascota"
             className="text-indigo-600 text-lg font-Roboto_Bold bg-white px-6 py-3 rounded-md"
           />
         </TouchableOpacity>

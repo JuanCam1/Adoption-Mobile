@@ -1,50 +1,40 @@
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { savePetService } from "../services/pet-service";
-import { useEffect, useState } from "react";
-import { getGenderService } from "../services/gender-service";
-import { getTypePetService } from "../services/type-pet-service";
-import { pickImage } from "@/libs/picker";
 import Toast from "react-native-toast-message";
-import { messageError } from "../consts/message-pet";
 
-const useUpdatePet = (pet: PetListModelI) => {
-  const [logoFile, setLogoFile] = useState<PickImageModelI | null>(null);
-  const [genders, setGenders] = useState<GenderModelI[]>([]);
-  const [types, setTypes] = useState<TypePetModelI[]>([]);
+import { savePetService } from "../services/pet-service";
+import { pickImage } from "@/libs/picker";
+import { messageError } from "../consts/message-pet";
+import { usePetContext } from "../contexts/pet-update-context";
+import { useRouter } from "expo-router";
+import { KeysQuery } from "@/consts/keys-query";
+import { query } from "@/libs/query";
+
+const useUpdatePet = () => {
+  const { selectedPet } = usePetContext();
+  const router = useRouter();
+
+  const [logoFile, setLogoFile] = useState<PickImageModelI>({
+    name: "progile-pet.jpg",
+    uri: selectedPet.pathPicture,
+    type: "image/jpeg",
+  });
   const [petUpdate, setPetUpdate] = useState({
-    id: pet.id,
-    name: pet.name,
-    genderId: String(pet.genderId),
-    description: pet.description,
-    typeId: String(pet.typeId),
-    age: pet.age,
-    breed: pet.breed,
-    location: pet.location,
-    picture: `${process.env.EXPO_PUBLIC_STATIC_DEV}/pet/${pet.pathPicture}`,
+    id: selectedPet?.id,
+    name: selectedPet?.name,
+    genderId: String(selectedPet?.genderId),
+    description: selectedPet?.description,
+    typeId: String(selectedPet?.typeId),
+    age: selectedPet?.age,
+    breed: selectedPet?.breed,
+    location: selectedPet?.location,
+    pictureUrl: `${process.env.EXPO_PUBLIC_STATIC_DEV}/pet/${selectedPet.pathPicture}`,
     userId: "e5ad63e0-d94d-4c84-8fd2-24e31c29c12a",
   });
 
   const mutatioUpdatePet = useMutation({
     mutationFn: (data: PetModelI) => savePetService(data, "update"),
   });
-
-  useEffect(() => {
-    const fetchDataInitial = async () => {
-      try {
-        const [genders, types] = await Promise.all([
-          getGenderService(),
-          getTypePetService(),
-        ]);
-
-        setGenders(genders.data.data);
-        setTypes(types.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchDataInitial();
-  }, []);
 
   type petKey = keyof typeof petUpdate;
   const handleChange = (name: petKey, value: string) => {
@@ -60,7 +50,7 @@ const useUpdatePet = (pet: PetListModelI) => {
     if (pick) {
       setPetUpdate({
         ...petUpdate,
-        picture: pick.logoImage,
+        pictureUrl: pick.logoImage,
       });
       setLogoFile(pick.file);
     }
@@ -154,8 +144,10 @@ const useUpdatePet = (pet: PetListModelI) => {
       return;
     }
 
+    const { pictureUrl, ...petUpdateData } = petUpdate;
+
     const dataPet: PetModelI = {
-      ...petUpdate,
+      ...petUpdateData,
       picture: logoFile,
     };
 
@@ -163,7 +155,7 @@ const useUpdatePet = (pet: PetListModelI) => {
 
     mutatioUpdatePet.mutate(dataPet, {
       onError: (error) => {
-        console.log("error", error.message);
+        console.log("error", error);
         Toast.show({
           type: "error",
           text1: "Error al actualizar la mascota",
@@ -176,6 +168,10 @@ const useUpdatePet = (pet: PetListModelI) => {
           text1: "Mascota actualizada",
           text2: "Mascota actualizada correctamente",
         });
+        router.replace("/home/(pet)/info");
+        query.invalidateQueries({
+          queryKey: [KeysQuery.LIST_PET_FETCH],
+        });
       },
     });
   };
@@ -187,8 +183,6 @@ const useUpdatePet = (pet: PetListModelI) => {
     isPending: mutatioUpdatePet.isPending,
     isError: mutatioUpdatePet.isError,
     isSuccess: mutatioUpdatePet.isSuccess,
-    genders,
-    types,
   };
 };
 
