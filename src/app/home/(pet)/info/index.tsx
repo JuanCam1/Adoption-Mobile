@@ -1,10 +1,5 @@
 import { useCallback } from "react";
-import {
-  View,
-  TouchableOpacity,
-  ActivityIndicator,
-  Switch,
-} from "react-native";
+import { View, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useFocusEffect } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { CirclePlus, Eye, SquarePen, Trash2 } from "lucide-react-native";
@@ -19,6 +14,7 @@ import ListPets from "@/modules/pets/sections/list-pets";
 import PetDeleteModal from "@/modules/pets/components/pet-delete-modal";
 import useTheme from "@/hooks/use-theme";
 import useDeletePet from "@/modules/pets/hooks/use-delete-pet";
+import PetSwicthState from "@/modules/pets/components/pet-swicth-state";
 
 const PetScreen = () => {
   const { theme } = useTheme();
@@ -45,6 +41,8 @@ const PetScreen = () => {
       setSelectedPet(null);
     }, []),
   );
+
+  console.log("selectedPet", selectedPet);
 
   return (
     <GestureHandlerRootView className="flex-1 p-4">
@@ -74,10 +72,10 @@ const PetScreen = () => {
                     className="text-white text-xl"
                   />
                   <TouchableOpacity
+                    className="bg-indigo-400 p-3 rounded-2xl"
                     onPress={() =>
                       router.push(`/home/(pet)/info/${String(selectedPet.id)}`)
                     }
-                    className="bg-indigo-400 p-3 rounded-2xl"
                   >
                     <Eye size={20} color="white" />
                   </TouchableOpacity>
@@ -108,15 +106,10 @@ const PetScreen = () => {
 
                 <View className="flex flex-row justify-between w-full items-center">
                   <TextRoboto text="Estado" className="text-white text-xl" />
-
-                  <View className="h-12 w-12 flex justify-center items-center rounded-2xl bg-indigo-400">
-                    <Switch
-                      trackColor={{ false: "#767577", true: "#4f46e5" }}
-                      thumbColor="#f1f5f9"
-                      ios_backgroundColor="#3e3e3e"
-                      value={true}
-                    />
-                  </View>
+                  <PetSwicthState
+                    id={selectedPet.id}
+                    stateId={selectedPet.stateId}
+                  />
                 </View>
 
                 <View className="flex flex-row justify-between w-full items-center">

@@ -1,37 +1,44 @@
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { stateChangePetService } from "../services/pet-service";
 import Toast from "react-native-toast-message";
+import { stateChangePetService } from "../services/pet-service";
 
-const useStatePet = (id: string) => {
-  const mutationStatePet = useMutation({
-    mutationFn: (id: string) => stateChangePetService(id),
+const useStatePet = (initialStateId: number, petId: string) => {
+  const [stateSwitch, setStateSwitch] = useState(initialStateId === 1);
+
+  const mutation = useMutation({
+    mutationFn: () => stateChangePetService(petId),
+    onMutate: async () => {
+      const previousState = stateSwitch;
+      setStateSwitch(!stateSwitch); // Optimistically update
+      return { previousState };
+    },
+    onError: (err, _, context) => {
+      console.log("err", err);
+      setStateSwitch(context?.previousState ?? stateSwitch);
+      Toast.show({
+        type: "error",
+        text1: "Error al actualizar la mascota",
+        text2: "Intenta nuevamente más tarde",
+      });
+    },
+    onSuccess: () => {
+      Toast.show({
+        type: "success",
+        text1: "Mascota actualizada",
+        text2: "Se actualizó el estado correctamente",
+      });
+    },
   });
 
-  const handleSubmit = () => {
-    mutationStatePet.mutate(id, {
-      onError: (error) => {
-        console.log("error", error.message);
-        Toast.show({
-          type: "error",
-          text1: "Error al actualizar la mascota",
-          text2: "Error al actualizar la mascota intentelo nuevamente",
-        });
-      },
-      onSuccess: () => {
-        Toast.show({
-          type: "success",
-          text1: "Mascota actualizada",
-          text2: "Mascota actualizada correctamente",
-        });
-      },
-    });
+  const handleToggleState = () => {
+    mutation.mutate();
   };
 
   return {
-    handleSubmit,
-    isPending: mutationStatePet.isPending,
-    isError: mutationStatePet.isError,
-    isSuccess: mutationStatePet.isSuccess,
+    handleToggleState,
+    stateSwitch,
   };
 };
+
 export default useStatePet;

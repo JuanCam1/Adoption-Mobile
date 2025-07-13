@@ -28,7 +28,7 @@ export interface PetListModel {
   createdAt: string
   updatedAt: string
   breed: string
-  state: string
+  statePet: string
   location: string
   latitude: number
   longitude: number
@@ -40,5 +40,6 @@ export interface PetListModel {
   filenamePicture: string
   type: TypePetModelI
   gender: GenderModelI
+  stateId: number
 }
 
