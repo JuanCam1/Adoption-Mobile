@@ -16,7 +16,16 @@ const useListFetchPet = () => {
     queryKey: [KeysQuery.LIST_PET_FETCH],
     queryFn: listPetsByIdService,
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.data.data.currentPage + 1,
+    getNextPageParam: (lastPage) => {
+      const currentPage = lastPage.data.data.currentPage;
+      const totalPages = lastPage.data.data.totalPages;
+
+      if (currentPage < totalPages) {
+        return currentPage + 1;
+      }
+
+      return undefined;
+    },
   });
 
   return {

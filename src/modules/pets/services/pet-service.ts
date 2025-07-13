@@ -27,8 +27,6 @@ export const savePetService = async (pet: PetModelI, type: request) => {
       },
     });
   }
-
-
 };
 
 export const listPetsByIdService = async ({ pageParam = 1 }) => {

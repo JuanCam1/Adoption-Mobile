@@ -22,7 +22,6 @@ const useListPets = () => {
 
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
   const handleCreateModal = (value: boolean) => {
     setIsCreateModalVisible(value);
@@ -30,14 +29,6 @@ const useListPets = () => {
 
   const handleEditModal = (value: boolean) => {
     setIsEditModalVisible(value);
-  };
-
-  const handleDeleteModal = (value: boolean) => {
-    setIsDeleteModalVisible(value);
-  };
-
-  const handleDeletePet = (id: string) => {
-    console.log("id", id);
   };
 
   return {
@@ -49,12 +40,9 @@ const useListPets = () => {
     handleSheetChanges,
     isCreateModalVisible,
     isEditModalVisible,
-    isDeleteModalVisible,
-    handleDeleteModal,
     handleCreateModal,
     handleEditModal,
     setSelectedPet,
-    handleDeletePet,
   };
 };
 

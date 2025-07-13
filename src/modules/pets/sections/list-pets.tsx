@@ -21,6 +21,7 @@ const ListPets: FC<Props> = ({ handleOpenBottomSheet }) => {
     fetchNextPage,
     status,
     refetch,
+    isFetching,
   } = useListFetchPet();
 
   useFocusEffect(
@@ -30,7 +31,7 @@ const ListPets: FC<Props> = ({ handleOpenBottomSheet }) => {
   );
 
   const loadMore = () => {
-    if (hasNextPage && !isFetchingNextPage) {
+    if (hasNextPage && !isFetchingNextPage && !isFetching) {
       fetchNextPage();
     }
   };

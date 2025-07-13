@@ -9,6 +9,8 @@ import { pickImage } from "@/libs/picker";
 import { getGenderService } from "../services/gender-service";
 import { getTypePetService } from "../services/type-pet-service";
 import { messageError } from "../consts/message-pet";
+import { query } from "@/libs/query";
+import { KeysQuery } from "@/consts/keys-query";
 const noUserImage = Image.resolveAssetSource(noUser).uri;
 
 const usePetForm = () => {
@@ -18,13 +20,13 @@ const usePetForm = () => {
   const [types, setTypes] = useState<TypePetModelI[]>([]);
 
   const [pet, setPet] = useState<Omit<PetModelI, "picture">>({
-    name: "Pancho",
-    description: "gato amigable, jugueton y pequeño, perezoso y simpático",
-    location: "Girón",
+    name: "",
+    description: "",
+    location: "",
     typeId: "",
     genderId: "",
-    age: "4 años",
-    breed: "Criollo",
+    age: "",
+    breed: "",
     userId: "e5ad63e0-d94d-4c84-8fd2-24e31c29c12a",
   });
 
@@ -176,6 +178,9 @@ const usePetForm = () => {
           type: "success",
           text1: messageError.onSuccess.text,
           text2: messageError.onSuccess.text2,
+        });
+        query.invalidateQueries({
+          queryKey: [KeysQuery.LIST_PET_FETCH],
         });
         resetValues();
       },

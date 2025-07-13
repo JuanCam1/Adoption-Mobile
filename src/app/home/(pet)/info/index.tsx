@@ -18,6 +18,7 @@ import useListPets from "@/modules/pets/hooks/use-list-pets";
 import ListPets from "@/modules/pets/sections/list-pets";
 import PetDeleteModal from "@/modules/pets/components/pet-delete-modal";
 import useTheme from "@/hooks/use-theme";
+import useDeletePet from "@/modules/pets/hooks/use-delete-pet";
 
 const PetScreen = () => {
   const { theme } = useTheme();
@@ -32,11 +33,11 @@ const PetScreen = () => {
     isEditModalVisible,
     handleCreateModal,
     handleEditModal,
-    handleDeleteModal,
-    isDeleteModalVisible,
     setSelectedPet,
-    handleDeletePet,
   } = useListPets();
+
+  const { handleDeleteModal, handleDeletePet, isDeleteModalVisible } =
+    useDeletePet(closeBottomSheet);
 
   useFocusEffect(
     useCallback(() => {
@@ -113,7 +114,7 @@ const PetScreen = () => {
                       trackColor={{ false: "#767577", true: "#4f46e5" }}
                       thumbColor="#f1f5f9"
                       ios_backgroundColor="#3e3e3e"
-                      value={false}
+                      value={true}
                     />
                   </View>
                 </View>
