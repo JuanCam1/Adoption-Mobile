@@ -54,14 +54,16 @@ const PetForm = () => {
 
         <View className="flex flex-col gap-2">
           <Text className="text-zinc-800 dark:text-zinc-200">Descripción</Text>
-          <TextInput
-            textAlignVertical="top"
-            className="flex-1 text-md h-32 p-2.5 pl-3 border-none bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-600 rounded-md"
-            value={pet.description}
-            multiline
-            numberOfLines={4}
-            onChangeText={(value) => handleChange("description", value)}
-          />
+          <View className="h-32 border border-zinc-600 rounded-md overflow-hidden">
+            <TextInput
+              textAlignVertical="top"
+              className="flex-1 text-md p-2.5 h-full pl-3 border-none bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-600 rounded-md"
+              multiline
+              numberOfLines={4}
+              value={pet.description}
+              onChangeText={(value) => handleChange("description", value)}
+            />
+          </View>
         </View>
 
         <View className="flex flex-col gap-2">
