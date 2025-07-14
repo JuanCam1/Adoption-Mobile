@@ -1,5 +1,5 @@
-import * as ImagePicker from "expo-image-picker";
 import { fetchBlob } from "@/utils/blob";
+import * as ImagePicker from "expo-image-picker";
 
 export const pickImage = async () => {
   const result = await ImagePicker.launchImageLibraryAsync({
@@ -10,21 +10,22 @@ export const pickImage = async () => {
   });
 
   if (!result.canceled) {
-    const logoImage = result.assets[0];
+    const image = result.assets[0];
 
-    const blob = await fetchBlob(logoImage.uri);
+    const blobImage = await fetchBlob(image.uri);
+
 
     const file = {
-      uri: logoImage.uri,
-      name: "profile.jpg",
-      type: blob.type || "image/jpeg",
+      uri: image.uri,
+      name: image.fileName ?? "profile.jpg",
+      type: blobImage.type,
     };
 
     return {
+      logoImage: image.uri,
       file,
-      logoImage: logoImage.uri,
     };
   }
 
   return undefined;
-};
+}

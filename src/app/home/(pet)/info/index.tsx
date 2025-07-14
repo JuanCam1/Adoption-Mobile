@@ -14,6 +14,7 @@ import PetDeleteModal from "@/modules/pets/components/pet-delete-modal";
 import useTheme from "@/hooks/use-theme";
 import useDeletePet from "@/modules/pets/hooks/use-delete-pet";
 import PetSwicthState from "@/modules/pets/components/pet-swicth-state";
+import useTypeGenderPet from "@/hooks/use-type-gender-pet";
 
 const PetScreen = () => {
   const { theme } = useTheme();
@@ -38,8 +39,6 @@ const PetScreen = () => {
       setSelectedPet(null);
     }, []),
   );
-
-  console.log("selectedPet", selectedPet);
 
   return (
     <GestureHandlerRootView className="flex-1 p-4">

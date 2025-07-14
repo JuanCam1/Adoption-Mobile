@@ -45,7 +45,7 @@ const PetUpdateForm = () => {
           <View className="h-12 border border-zinc-600 rounded-md ">
             <TextInput
               value={petUpdate.name}
-              onChangeText={(value) => handleChange("name", value.trim())}
+              onChangeText={(value) => handleChange("name", value)}
               className="h-full flex-1 text-md p-2.5 pl-3 border-none bg-white  dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
             />
           </View>
@@ -58,7 +58,7 @@ const PetUpdateForm = () => {
             value={petUpdate.description}
             multiline
             numberOfLines={4}
-            onChangeText={(value) => handleChange("description", value.trim())}
+            onChangeText={(value) => handleChange("description", value)}
           />
         </View>
 
@@ -113,7 +113,7 @@ const PetUpdateForm = () => {
           <View className="h-12 border border-zinc-600 rounded-md ">
             <TextInput
               value={petUpdate.breed}
-              onChangeText={(value) => handleChange("breed", value.trim())}
+              onChangeText={(value) => handleChange("breed", value)}
               className="h-full flex-1 text-md p-2.5 pl-3 border-none bg-white  dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
             />
           </View>
@@ -124,7 +124,7 @@ const PetUpdateForm = () => {
           <View className="h-12 border border-zinc-600 rounded-md ">
             <TextInput
               value={petUpdate.age}
-              onChangeText={(value) => handleChange("age", value.trim())}
+              onChangeText={(value) => handleChange("age", value)}
               className="h-full flex-1 text-md p-2.5 pl-3 border-none bg-white  dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
             />
           </View>
@@ -135,7 +135,7 @@ const PetUpdateForm = () => {
           <View className="h-12 border border-zinc-600 rounded-md ">
             <TextInput
               value={petUpdate.location}
-              onChangeText={(value) => handleChange("location", value.trim())}
+              onChangeText={(value) => handleChange("location", value)}
               className="h-full flex-1 text-md p-2.5 pl-3 border-none bg-white  dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
             />
           </View>

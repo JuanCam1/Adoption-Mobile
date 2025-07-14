@@ -43,10 +43,10 @@ const PetForm = () => {
       <View className="w-full flex flex-col gap-6 mt-6 ">
         <View className="flex flex-col gap-2">
           <Text className="text-zinc-800 dark:text-zinc-200">Nombre</Text>
-          <View className="h-12 border border-zinc-600 rounded-md ">
+          <View className="h-12 border border-zinc-600 rounded-md overflow-hidden">
             <TextInput
               value={pet.name}
-              onChangeText={(value) => handleChange("name", value.trim())}
+              onChangeText={(value) => handleChange("name", value)}
               className="h-full flex-1 text-md p-2.5 pl-3 border-none bg-white  dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
             />
           </View>
@@ -55,11 +55,12 @@ const PetForm = () => {
         <View className="flex flex-col gap-2">
           <Text className="text-zinc-800 dark:text-zinc-200">Descripción</Text>
           <TextInput
-            className="h-32 flex-1 text-md p-2.5 pl-3 border-none bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-600 rounded-md"
+            textAlignVertical="top"
+            className="flex-1 text-md h-32 p-2.5 pl-3 border-none bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-600 rounded-md"
             value={pet.description}
             multiline
             numberOfLines={4}
-            onChangeText={(value) => handleChange("description", value.trim())}
+            onChangeText={(value) => handleChange("description", value)}
           />
         </View>
 
@@ -107,10 +108,10 @@ const PetForm = () => {
 
         <View className="flex flex-col gap-2">
           <Text className="text-zinc-800 dark:text-zinc-200">Reza</Text>
-          <View className="h-12 border border-zinc-600 rounded-md ">
+          <View className="h-12 border border-zinc-600 rounded-md overflow-hidden">
             <TextInput
               value={pet.breed}
-              onChangeText={(value) => handleChange("breed", value.trim())}
+              onChangeText={(value) => handleChange("breed", value)}
               className="h-full flex-1 text-md p-2.5 pl-3 border-none bg-white  dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
             />
           </View>
@@ -118,10 +119,10 @@ const PetForm = () => {
 
         <View className="flex flex-col gap-2">
           <Text className="text-zinc-800 dark:text-zinc-200">Edad</Text>
-          <View className="h-12 border border-zinc-600 rounded-md ">
+          <View className="h-12 border border-zinc-600 rounded-md overflow-hidden">
             <TextInput
               value={pet.age}
-              onChangeText={(value) => handleChange("age", value.trim())}
+              onChangeText={(value) => handleChange("age", value)}
               className="h-full flex-1 text-md p-2.5 pl-3 border-none bg-white  dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
             />
           </View>
@@ -129,10 +130,10 @@ const PetForm = () => {
 
         <View className="flex flex-col gap-2">
           <Text className="text-zinc-800 dark:text-zinc-200">Ciudad</Text>
-          <View className="h-12 border border-zinc-600 rounded-md ">
+          <View className="h-12 border border-zinc-600 rounded-md overflow-hidden">
             <TextInput
               value={pet.location}
-              onChangeText={(value) => handleChange("location", value.trim())}
+              onChangeText={(value) => handleChange("location", value)}
               className="h-full flex-1 text-md p-2.5 pl-3 border-none bg-white  dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
             />
           </View>

@@ -1,14 +1,13 @@
 import { Platform, TouchableOpacity, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import TextPoppins from "@/components/text-poppins";
-import PetUpdateForm from "@/modules/pets/components/pet-update-form";
-import { ArrowLeft } from "lucide-react-native";
-import useTheme from "@/hooks/use-theme";
 import { useRouter } from "expo-router";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { ArrowLeft } from "lucide-react-native";
+
+import TextPoppins from "@/components/text-poppins";
+import PetUpdateForm from "@/modules/pets/components/pet-update-form";
+import useTheme from "@/hooks/use-theme";
 
 const UpdatePet = () => {
-  const { bottom } = useSafeAreaInsets();
   const { theme } = useTheme();
   const router = useRouter();
   return (
@@ -24,7 +23,7 @@ const UpdatePet = () => {
         enableOnAndroid={true}
         keyboardShouldPersistTaps="handled"
         extraScrollHeight={Platform.OS === "ios" ? 20 : 30}
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: bottom }}
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
         showsVerticalScrollIndicator={false}
         style={{ flex: 1 }}
         className="dark:bg-zinc-900"

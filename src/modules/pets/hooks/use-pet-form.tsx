@@ -27,7 +27,7 @@ const usePetForm = () => {
   });
 
   const mutationPetCreate = useMutation({
-    mutationFn: (data: PetModelI) => savePetService(data, "create"),
+    mutationFn: (data: PetModelI) => savePetService(data),
   });
 
   type UserKey = keyof typeof pet;
@@ -136,7 +136,14 @@ const usePetForm = () => {
     }
 
     const dataPet: PetModelI = {
-      ...pet,
+      name: pet.name.trim(),
+      description: pet.description.trim(),
+      location: pet.location.trim(),
+      age: pet.age.trim(),
+      breed: pet.breed.trim(),
+      genderId: pet.genderId,
+      typeId: pet.typeId,
+      userId: pet.userId,
       picture: logoFile,
     };
 
@@ -144,7 +151,8 @@ const usePetForm = () => {
 
     mutationPetCreate.mutate(dataPet, {
       onError: (error) => {
-        console.log("error", error.message);
+        console.log("error", error);
+        console.log("error", error.stack);
         Toast.show({
           type: "error",
           text1: messageError.onError.text,

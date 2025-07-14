@@ -2,16 +2,14 @@ import TextPoppins from "@/components/text-poppins";
 import PetForm from "@/modules/pets/sections/pet-form";
 import { View, Platform } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CreatePet = () => {
-  const { bottom } = useSafeAreaInsets();
   return (
     <KeyboardAwareScrollView
       enableOnAndroid={true}
       keyboardShouldPersistTaps="handled"
       extraScrollHeight={Platform.OS === "ios" ? 20 : 30}
-      contentContainerStyle={{ flexGrow: 1, paddingBottom: bottom }}
+      contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
       showsVerticalScrollIndicator={false}
       style={{ flex: 1 }}
       className="dark:bg-zinc-900"

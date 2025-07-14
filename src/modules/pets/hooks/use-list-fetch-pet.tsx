@@ -17,10 +17,10 @@ const useListFetchPet = () => {
     queryFn: listPetsByIdService,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      const currentPage = lastPage.data.data.currentPage;
-      const totalPages = lastPage.data.data.totalPages;
+      const currentPage = lastPage?.data?.data?.currentPage;
+      const totalPages = lastPage?.data?.data?.totalPages;
 
-      if (currentPage < totalPages) {
+      if (currentPage && totalPages && currentPage < totalPages) {
         return currentPage + 1;
       }
 
