@@ -14,11 +14,12 @@ const useUpdatePet = () => {
   const { selectedPet } = usePetContext();
   const router = useRouter();
 
-  const [logoFile, setLogoFile] = useState<PickImageModelI>({
-    name: "progile-pet.jpg",
-    uri: selectedPet.pathPicture,
-    type: "image/jpeg",
-  });
+  // const [logoFile, setLogoFile] = useState<PickImageModelI>({
+  //   name: "progile-pet.jpg",
+  //   uri: selectedPet.pathPicture,
+  //   type: "image/jpeg",
+  // });
+  const [logoFile, setLogoFile] = useState("");
   const [petUpdate, setPetUpdate] = useState({
     name: selectedPet.name,
     genderId: String(selectedPet.genderId),
@@ -52,7 +53,7 @@ const useUpdatePet = () => {
         ...petUpdate,
         pictureUrl: pick.logoImage,
       });
-      setLogoFile(pick.file);
+      setLogoFile(pick.base64);
     }
   };
 
@@ -155,14 +156,12 @@ const useUpdatePet = () => {
       userId: petUpdate.userId,
       picture: logoFile,
     };
-    console.log("dataPet", dataPet);
-    console.log(`${process.env.EXPO_PUBLIC_API_URL_DEV}/pet/${selectedPet.id}`);
+
     mutatioUpdatePet.mutate(
       { data: dataPet, id: selectedPet.id },
       {
         onError: (error) => {
           console.log("error", error);
-          console.log("error", error.stack);
           console.log("error", error.cause);
           console.log("error", error.message);
           Toast.show({

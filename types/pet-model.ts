@@ -1,6 +1,4 @@
 
-
-
 export interface PetModel {
   name: string;
   description: string;
@@ -10,7 +8,7 @@ export interface PetModel {
   age: string;
   breed: string;
   userId: string;
-  picture: PickImageModelI;
+  picture: string;
 }
 
 export interface ListPetByUserModel {

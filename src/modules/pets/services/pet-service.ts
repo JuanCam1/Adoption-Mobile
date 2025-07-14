@@ -1,53 +1,16 @@
 import { instance } from "@/libs/axios";
 
 export const savePetService = async (pet: PetModelI) => {
-  const formData = new FormData();
-
-  Object.entries(pet).forEach(([key, value]) => {
-    if (value !== undefined && value !== null && value !== "") {
-      if (key === "picture") {
-        formData.append("picture", {
-          uri: value.uri,
-          name: value.name,
-          type: value.type,
-          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-        } as any);
-      } else {
-        formData.append(key, value);
-      }
-    }
-  });
+  console.log("pet - service", pet);
 
   return await instance.post<SendResponseModelI<PetModelI>>(
     "/pet",
-    formData,
-    {
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "multipart/form-data",
-      },
-    },
+    pet
   );
 };
 
 export const updatePetService = async (pet: PetModelI, id: string) => {
-  const formData = new FormData();
-
-  Object.entries(pet).forEach(([key, value]) => {
-    if (value !== undefined && value !== null && value !== "") {
-      if (key === "picture") {
-        formData.append("picture", value);
-      } else {
-        formData.append(key, value);
-      }
-    }
-  });
-  return await instance.post<SendResponseModelI<PetModelI>>(`/pet/${id}`, formData, {
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  return await instance.post<SendResponseModelI<PetModelI>>(`/pet/${id}`, pet);
 };
 
 
