@@ -16,7 +16,6 @@ import OTPModal from "../components/otp-modal";
 const RegisterForm = () => {
   const { theme } = useTheme();
   const {
-    logoImage,
     user,
     handleChange,
     handleSubmit,
@@ -33,7 +32,7 @@ const RegisterForm = () => {
         <View className="relative">
           <Image
             className="rounded-full"
-            source={{ uri: logoImage }}
+            source={{ uri: user.picture }}
             width={150}
             height={150}
           />

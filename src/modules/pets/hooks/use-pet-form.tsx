@@ -12,10 +12,9 @@ import { KeysQuery } from "@/consts/keys-query";
 const noUserImage = Image.resolveAssetSource(noUser).uri;
 
 const usePetForm = () => {
-  const [logoImage, setLogoImage] = useState(noUserImage);
-  const [logoFile, setLogoFile] = useState<PickImageModelI | null>(null);
+  const [logoFile, setLogoFile] = useState("");
 
-  const [pet, setPet] = useState<Omit<PetModelI, "picture">>({
+  const [pet, setPet] = useState<PetModelI>({
     name: "",
     description: "",
     location: "",
@@ -24,6 +23,7 @@ const usePetForm = () => {
     age: "",
     breed: "",
     userId: "e5ad63e0-d94d-4c84-8fd2-24e31c29c12a",
+    picture: noUserImage,
   });
 
   const mutationPetCreate = useMutation({
@@ -42,8 +42,11 @@ const usePetForm = () => {
     const pick = await pickImage();
 
     if (pick) {
-      setLogoImage(pick.logoImage);
-      setLogoFile(pick.file);
+      setPet({
+        ...pet,
+        picture: pick.logoImage,
+      });
+      setLogoFile(pick.base64);
     }
   };
 
@@ -183,6 +186,7 @@ const usePetForm = () => {
       age: "",
       breed: "",
       userId: "914be76e-0dc8-491d-81d7-6224384ff948",
+      picture: noUserImage,
     });
     // setPet({
     //   name: "Pancho",
@@ -194,12 +198,10 @@ const usePetForm = () => {
     //   breed: "Criollo",
     //   userId: "914be76e-0dc8-491d-81d7-6224384ff948",
     // });
-    setLogoImage(noUserImage);
     setLogoFile(null);
   };
 
   return {
-    logoImage,
     pet,
     handleChange,
     imagePet,

@@ -14,11 +14,6 @@ const useUpdatePet = () => {
   const { selectedPet } = usePetContext();
   const router = useRouter();
 
-  // const [logoFile, setLogoFile] = useState<PickImageModelI>({
-  //   name: "progile-pet.jpg",
-  //   uri: selectedPet.pathPicture,
-  //   type: "image/jpeg",
-  // });
   const [logoFile, setLogoFile] = useState("");
   const [petUpdate, setPetUpdate] = useState({
     name: selectedPet.name,
@@ -181,7 +176,7 @@ const useUpdatePet = () => {
             queryKey: [KeysQuery.LIST_PET_FETCH],
           });
         },
-      },
+      }
     );
   };
   return {

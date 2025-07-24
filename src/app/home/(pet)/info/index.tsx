@@ -36,7 +36,7 @@ const PetScreen = () => {
     useCallback(() => {
       closeBottomSheet();
       setSelectedPet(null);
-    }, []),
+    }, [])
   );
 
   return (
@@ -119,9 +119,10 @@ const PetScreen = () => {
         )}
       </BottomSheetComponent>
 
-      {isCreateModalVisible && (
+      {isCreateModalVisible && selectedPet && (
         <PetCreatePostModal
           visible={isCreateModalVisible}
+          selectedPet={selectedPet}
           onClose={handleCreateModal}
         />
       )}

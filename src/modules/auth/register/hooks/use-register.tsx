@@ -8,8 +8,7 @@ import { pickImage } from "@/libs/picker";
 const noUserImage = Image.resolveAssetSource(noUser).uri;
 
 const useRegister = () => {
-  const [logoImage, setLogoImage] = useState(noUserImage);
-  const [logoFile, setLogoFile] = useState<PickImageModelI | null>(null);
+  const [logoFile, setLogoFile] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [dataUser, setDataUser] = useState<UserModelI | null>(null);
 
@@ -24,6 +23,7 @@ const useRegister = () => {
     address: "carrear 8 #12-54",
     email: "diego@gmail.com",
     password: "Diego12.",
+    picture: noUserImage,
   });
 
   const mutationRegister = useMutation({
@@ -42,8 +42,11 @@ const useRegister = () => {
     const pick = await pickImage();
 
     if (pick) {
-      setLogoImage(pick.logoImage);
-      setLogoFile(pick.file);
+      setUser({
+        ...user,
+        picture: pick.logoImage,
+      });
+      setLogoFile(pick.base64);
     }
   };
 
@@ -168,7 +171,6 @@ const useRegister = () => {
   };
 
   return {
-    logoImage,
     user,
     handleChange,
     handleSubmit,

@@ -11,7 +11,7 @@ export interface RegisterModel {
   address: string;
   location: string;
   description?: string | null | undefined;
-  picture: PickImageModelI;
+  picture: string;
 }
 export interface PayloadModel {
   id: string;

@@ -15,8 +15,7 @@ import useTypeGenderPet from "@/hooks/use-type-gender-pet";
 
 const PetForm = () => {
   const { theme } = useTheme();
-  const { logoImage, pet, handleChange, imagePet, handleSubmit, isPending } =
-    usePetForm();
+  const { pet, handleChange, imagePet, handleSubmit, isPending } = usePetForm();
 
   const { genders, types } = useTypeGenderPet();
 
@@ -26,7 +25,7 @@ const PetForm = () => {
         <View className="relative">
           <Image
             className="rounded-full bg-zinc-200 dark:bg-zinc-700"
-            source={{ uri: logoImage }}
+            source={{ uri: pet.picture }}
             width={150}
             height={150}
           />
